@@ -1,23 +1,22 @@
 using System;
 
-interface Flight
+interface IFlight
 {
-  Guid FlightGuid;
-  Aircraft Plane;
+  Guid FlightGuid { get; }
+  Aircraft Plane { get; set; }
 
-  CrewMember Pilot;
-  CrewMember FirstOfficer;
-  CrewMember[] FlightAttendants;
+  CrewMember Pilot { get; set; }
+  CrewMember FirstOfficer { get; set; }
+  CrewMember[] FlightAttendants { get; set; }
 
-  string Origin;
-  string Destination;
+  string Origin { get; set; }
+  string Destination { get; set; }
 
-  DateTime estTouchdown;
-  DateTime actTouchdown;
-  DateTime schedTouchdown;
+  DateTime EstTouchdown { get; set; }
+  DateTime ActTouchdown { get; set; }
+  DateTime SchedTouchdown { get; set; }
 
-  DateTime estTakeoff;
-  DateTime actTakeoff;
-  DateTime schedTakeoff;
-
+  DateTime EstTakeoff { get; set; }
+  DateTime ActTakeoff { get; set; }
+  DateTime SchedTakeoff { get; set; }
 }
