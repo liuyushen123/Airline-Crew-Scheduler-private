@@ -1,10 +1,9 @@
 public interface ICrewMember
 {
-    int CrewMemberID { get; set; }
+    int CrewMemberID { get; }
     string FirstName { get; set; }
     string LastName { get; set; }
     string Role { get; set; }
-    string BaseAirport { get; set; }
-    string Qualification { get; set; }
+    string Location { get; set; }
 }
     
