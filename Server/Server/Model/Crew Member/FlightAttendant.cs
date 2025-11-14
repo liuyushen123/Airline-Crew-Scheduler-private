@@ -1,3 +1,5 @@
+namespace Server.Model.Crew;
+
 public class FlightAttendant : ICrewMember
 {
     public int CrewMemberID { get;}

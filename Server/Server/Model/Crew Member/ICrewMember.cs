@@ -1,3 +1,5 @@
+namespace Server.Model.Crew;
+
 public interface ICrewMember
 {
     int CrewMemberID { get; }
