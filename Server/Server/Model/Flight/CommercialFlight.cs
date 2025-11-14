@@ -11,7 +11,7 @@ class CommercialFlight : IFlight
   public Aircraft Plane { get; set; }
   public CrewMember Pilot { get; set; }
   public CrewMember FirstOfficer { get; set; }
-  public CrewMember[] FlightAttendants { get; set; }
+  public List<CrewMember> FlightAttendants { get; set; }
 
   public string Origin { get; set; }
   public string Destination { get; set; }

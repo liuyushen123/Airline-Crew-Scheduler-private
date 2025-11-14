@@ -7,7 +7,7 @@ interface IFlight
 
   CrewMember Pilot { get; set; }
   CrewMember FirstOfficer { get; set; }
-  CrewMember[] FlightAttendants { get; set; }
+  List<CrewMember> FlightAttendants { get; set; }
 
   string Origin { get; set; }
   string Destination { get; set; }
