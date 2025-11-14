@@ -1,39 +1,105 @@
 <div align='center'>
     <img src="doc/Cornhusker_logo.png" alt="Corhusker Airways LOGO" height="296">
-
-
-<br>
-
-
-<p>
-    <a href="https://discord.gg/zh65xYXd"><img alt="Discord button" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/discord.svg"></a>
-    <img href="www.google.com" alt="Engines" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/github_sponsor.svg">
-    <a href="www.google.com"><img alt="Blog" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/facebook.svg"></a>
-    <a href="https://arxiv.org/abs/2508.08448"><img alt="arXiv: GPU OS vision" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/tiktok.svg"></a>
-    <br>
-    <a href="https://arxiv.org/abs/2505.04021"><img alt="arXiv: Multi LLM Serving" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/twitter.svg"></a>
-    <a href="https://join.slack.com/t/ovg-project/shared_invite/zt-3fr01t8s7-ZtDhHSJQ00hcLHgwKx3Dmw"><img alt="Slack Join" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/youtube.svg"></a>
-    <a href="LICENSE"><img alt="License" src="https://gist.githubusercontent.com/cxmeel/0dbc95191f239b631c3874f4ccf114e2/raw/typescript.svg"></a>
-  </p>
-﻿
 </div>
 
-<h1 align="center"> Cornhusker Airways Crew Schduler</h1>
-<h3 align="left">Introduction</h3>
-
-- **Who are we?:** At Cornhusker Airways (CHA), we’re a passionate regional airline proudly serving the heart of the Midwest — connecting Lincoln, Iowa City, Evanston, and West Lafayette with safe, efficient, and friendly air travel. Our dedicated crews of skilled captains, first officers, and flight attendants embody professionalism and teamwork on every flight. With a focus on reliability, precision, and passenger care, CHA is driven by a spirit of innovation and commitment to excellence — keeping our flights on schedule and our passengers smiling from takeoff to touchdown!
-
-
-<br>
 <br>
 
+# Introduction 
 
-# About this Project
+Cornhusker Aiways Crew Scheudler is a fun class project building a regional airline schduling system that intuitive airline information and crew assignment system.. This is a project explores real world software design concepts such as using APIs, SQL Server, validation, and logging.
 
-- This project is a crew scheduling system designed for Cornhusker Airways (CHA), a small regional airline operating in the Midwest. The system manages flight schedules, aircraft assignments, and crew rosters — ensuring that every flight has a qualified captain, first officer, and the correct number of flight attendants based on aircraft capacity. It automatically checks for scheduling conflicts, validates crew qualifications, and logs every update with a unique, human-readable update number. The system can be run in either text or GUI mode and stores all data persistently, allowing flight and crew information to be recovered even after a power outage. Overall, this project provides an efficient, organized, and reliable way to handle airline scheduling operations.
+The goal of this project is to build a functional and maintainable scheduler that display  essential flight information and clearly inform crew members which flights they are schduled on!
 
-- **Key Features**: the project features a React-based frontend, which provides a modern, responsive, and user-friendly interface for managing flight and crew data. The C# middleware serves as the backbone of the system, handling business logic, data validation, and communication between the frontend and the database. This architecture allows real-time updates, strong data integrity, and smooth error handling. Together, React and C# create a reliable, scalable, and intuitive platform that helps CHA streamline its scheduling operations and maintain smooth flight coordination.
+By simulating the development of this software helps us practice software design, data organization, and user-friendly frontend design.
 
-- **Update Records and Logging System**: The update and logging system is a core feature of the Cornhusker Airways Crew Scheduling application. Every time a change is made — such as assigning a crew member, modifying flight times, or updating aircraft information — the system automatically creates a new update record with a unique, human-readable update number. This identifier includes semantically meaningful details like the date of the change or flight reference, making it easy to trace and interpret. Each record is securely stored and can be searched by flight number, crew member, airport, or date range, allowing users to quickly find and review past updates. This structure not only improves accountability and transparency but also ensures that CHA maintains a complete historical log of all schedule changes, even after system restarts or power outages.
+---
+
+# Requirement
+
+**1) Employee role**: Our employee at CHA will have their unique role and reponsibility! The crew positions are:
+<ul>
+  <li><strong>Captian</strong> -  One of two cockpit positions. The captain must be a qualified pilot for the particular
+aircraft</li>
+<br>
+  <li>
+      <strong>First Officer</strong> - One of two cockpit positions. The first officer must be a qualified pilot or co-pilot
+for the particular aircraft.
+  </li>
+<br>
+  <li>
+    <strong>Flight Attendant</strong> - Crew member(s) who are responsible for the safety of passengers in the main
+cabin.
+  </li>
+</ul>
+
+**2) Aircrafy Type**: CHA operates two types of passenger Aircraft GBR-10 and NU-150. Each flight must have flightID, registrationID, and crewMembers(A captian, first officer, plus one flight attendant!)
+
+**3) Standby Crew**: Each airport must have a full standby crew for each type of aircraft, though the standby crew
+members may be assigned to flights individually rather than as an atomic crew.
+
+**4) Logging** Updates to the schedule must be maintained in an electronic log that can be searched by flight,
+crew member, airport, and/or date range. Each update will generate a unique update number. The
+update number format must include semantically-significant information that is interpretable by
+humans, such as including the date of the change and/or the date of the flight as part of the
+update number. The possible updates are omitted here for brevity and will be provided later.
+Any time the schedule is updated, the software must check those constraints. If any of the
+constraints are violated, the software must alert the user to the violation(s).
+
+---
+
+# Demo
+
+<img src="doc/Demo.png">
+
+- **🖥️ Frontend - Build with React** The frontend of Cornhusker Airways is developed using React, providing a responsive and interactive user experience. Our main objectives for the UI are clarity, simplicity, and ease of navigation for both flight crew and administrators.
+
+The React interface displays key information such as:
+<ul>
+  <li>
+    <strong>✈️ Available flights</strong>
+  </li>
+  <li>
+    <strong>👨‍✈️ Assigned crew members</strong>
+  </li>
+   <li>
+    <strong>🕒 Departure and arrival times</strong>
+   </li>
+    <li>
+    <strong>📍 Airport details</strong>
+     </li>
+     <li>
+    <strong>🗂️ Schedules organized by date</strong>
+     </li>
+</ul>
+<br>
+Our frontend communicates with the backend through our designed API, allowing realtime display of schduling updates and flight information.
+
+With the Airway schduling software CHA crew members can quickly see which flights they are assigned to.
+
+- **🛠️ Backend – Flight & Crew Scheduling Logic:**
+The backend of Cornhusker Airways is responsible for handling all schduling logic, data mangement, and validating. Essentially our backend ensures the accuracy of our flight information and correctly assigns flights to our crew member
+
+<ul>
+  <li>
+      <strong>🔄 Flight Data Management:</strong> We use C# as our middleware to perform all CRUD of the operations on our SQL Express databasae. This allows us to manage our data and constanly updates our database efficiently.
+  </li>
+
+  <li>
+    <strong>👨‍✈️ Crew Assignment Handling:</strong> Managing which crew members are assigned to each flight, ensuring no scheduling conflicts.
+  </li>
+
+  <li>
+    <strong>📅 Schedule Validation:</strong> 
+    <br>
+    Ensuring that crew assignments follow rules such as:
+    <ul>
+      <li><strong>Ensures no overlapping flights</strong></li>
+      <li><strong>Checks crew rest time requirements</strong></li>
+      <li><strong>Validates correct crew roles for each aircraft</strong></li>
+    </ul>
+  </li>
+</ul>
+
+---
 
 # Contributor
