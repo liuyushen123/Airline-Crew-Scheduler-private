@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Airline_Update
+namespace Server.Model.Update
 {
     public class AircraftUpdate : IUpdateRecord
     {

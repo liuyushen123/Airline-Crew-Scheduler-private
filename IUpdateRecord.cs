@@ -1,4 +1,4 @@
-﻿namespace Airline_Update
+﻿namespace Server.Model.Update
 {
     public interface IUpdateRecord
     {
