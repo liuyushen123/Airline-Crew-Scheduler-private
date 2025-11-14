@@ -105,25 +105,28 @@ The backend of Cornhusker Airways is responsible for handling all scheduling log
 # Contributor
 <ul>
   <li>
-  <a href="https://www.linkedin.com/in/ethandye-/">Ethan Dye</a>
+  <a href="https://github.com/ethanol25">Ethan Dye</a>
   </li>
   <li>
-    <a href="https://www.linkedin.com/in/alishlaibah/">Ali Shlaibah</a>
+    <a href="https://github.com/alishlaibah">Ali Shlaibah</a>
   </li>
 
   <li>
-    <a href="https://www.linkedin.com/in/jacob-dimmitt-a78536211/">Jacob Dimmitt</a>
+    <a href="https://github.com/JacobDDoS">Jacob Dimmitt</a>
   </li>
 
   <li>
-    <a href="https://www.linkedin.com/in/thomas-schaefer-811453353/">Thomas Schaefer</a>
+    <a href="https://github.com/toschaef">Thomas Schaefer</a>
   </li>
 
   <li>
-    <a href="https://www.linkedin.com/in/yuchen-liu-714547321/">Yuchen Liu</a>
+    <a href="https://github.com/liuyushen123">Yuchen Liu</a>
   </li>
 
   <li>
-    <a href="">
+    <a href="https://github.com/estrasburg">Estrasburg</a>
   </li>
+
+  <li>
+    <a href="https://github.com/Ricky-1553">Ricky</a>
 </ul>
