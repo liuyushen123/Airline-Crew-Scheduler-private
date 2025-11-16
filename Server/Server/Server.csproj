@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="Controller\Validation\" />
-      <Folder Include="Model\Aircraft\" />
       <Folder Include="Model\Crew Member\" />
       <Folder Include="Model\Database\Logging\" />
       <Folder Include="Model\Flight\" />

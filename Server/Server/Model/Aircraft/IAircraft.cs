@@ -2,9 +2,9 @@
 {
     public interface IAircraft
     {
-        Guid aircraftID { get;}
-        string aircraftType { get;}
-        int maxCapacity { get; }
-        string currentLocation { get; set; }
+        int AircraftID { get;}
+        string AircraftType { get;}
+        int MaxCapacity { get; }
+        string CurrentLocation { get; set; }
     }
 }
