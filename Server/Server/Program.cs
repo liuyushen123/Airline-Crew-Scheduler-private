@@ -1,10 +1,32 @@
+
+
+using Server.Model.Database;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+//get connection string from appsettings.json
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddSingleton(new DatabaseService(connectionString));
+builder.Services.AddControllers();
+
 var app = builder.Build();
+
+
+var dbService = app.Services.GetRequiredService<DatabaseService>();
+dbService.TestDatabaseConnection();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,6 +55,11 @@ app.MapGet("/weatherforecast", () =>
     })
     .WithName("GetWeatherForecast");
 
+
+
+//
+app.UseAuthorization();
+app.MapControllers(); 
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
