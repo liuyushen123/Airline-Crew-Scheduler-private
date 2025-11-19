@@ -1,5 +1,28 @@
-obj/
+# Ignore build output
 bin/
-*.sln
-*.csproj
-Server/
+obj/
+*.log
+
+# Ignore user-specific files
+*.user
+*.vspscc
+*.suo
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Do NOT ignore essential project files
+!Server.sln
+!Server/Server/Properties/launchSettings.json
+!Server/Server.http
+!Server/Server/appsettings.Development.json
