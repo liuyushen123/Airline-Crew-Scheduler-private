@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Model.Flight;
 using Server.Model.Database;
-using Server.Model.UpdateRecord;
+using Server.Model.Update;
 
 namespace Server.Controller
 {
