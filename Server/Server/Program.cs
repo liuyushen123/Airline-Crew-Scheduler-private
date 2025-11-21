@@ -1,24 +1,17 @@
 
-
+using Microsoft.EntityFrameworkCore;
 using Server.Model.Database;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-
-//get connection string from appsettings.json
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-
 
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddSingleton(new DatabaseService(connectionString));
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AirlineDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
