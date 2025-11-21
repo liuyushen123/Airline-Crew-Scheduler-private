@@ -134,3 +134,20 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+# =========================
+# Modern Visual Studio & EF Core Additions
+# =========================
+
+# The main culprit for .vsidx files
+.vs/
+*.vsidx
+
+# SQLite / Database temp files
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+
+# Entity Framework Core Migration scripts
+bundle.js
