@@ -1,10 +1,25 @@
-﻿namespace Server.Model.Aircraft
+﻿using Server.Model.Flight;
+using System.ComponentModel.DataAnnotations;
+
+namespace Server.Model.Aircraft
 {
-    public class Aircraft : IAircraft
+
+    //THIS IS AIRPLANE NOT AIRCRAFT
+    public class Airplane : IAircraft
     {
-        public int AircraftID { get; set; }
-        public string AircraftType { get; set; }
+        [Key]
+        public Guid AircraftID { get; set; } = Guid.NewGuid();
+
+        [Required]
+        public string AircraftType { get; set; } = string.Empty;
+
+        [Range(1,1000)]
         public int MaxCapacity { get; set; }
-        public string CurrentLocation { get; set; }
+
+        [Required]
+        public string CurrentLocation { get; set; } = string.Empty;
+
+        public virtual ICollection<CommercialFlight> Flights { get; set; } = new List<CommercialFlight>();
+
     }
 }
