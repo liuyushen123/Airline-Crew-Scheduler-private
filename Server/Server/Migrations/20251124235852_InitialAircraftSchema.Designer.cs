@@ -12,8 +12,8 @@ using Server.Model.Database;
 namespace Server.Migrations
 {
     [DbContext(typeof(AirlineDbContext))]
-    [Migration("20251121203803_FinalSchema")]
-    partial class FinalSchema
+    [Migration("20251124235852_InitialAircraftSchema")]
+    partial class InitialAircraftSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Server.Model.Aircraft.Airplane", b =>
+            modelBuilder.Entity("Server.Model.Aircraft.Aircraft", b =>
                 {
                     b.Property<Guid>("AircraftID")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace Server.Migrations
 
                     b.HasKey("AircraftID");
 
-                    b.ToTable("Airplane");
+                    b.ToTable("Aircraft");
                 });
 
             modelBuilder.Entity("Server.Model.Crew_Member.CrewMember", b =>
@@ -135,7 +135,7 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Model.Flight.CommercialFlight", b =>
                 {
-                    b.HasOne("Server.Model.Aircraft.Airplane", "Plane")
+                    b.HasOne("Server.Model.Aircraft.Aircraft", "Plane")
                         .WithMany("Flights")
                         .HasForeignKey("AircraftId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -163,7 +163,7 @@ namespace Server.Migrations
                     b.Navigation("Flight");
                 });
 
-            modelBuilder.Entity("Server.Model.Aircraft.Airplane", b =>
+            modelBuilder.Entity("Server.Model.Aircraft.Aircraft", b =>
                 {
                     b.Navigation("Flights");
                 });

@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Server.Migrations
 {
     /// <inheritdoc />
-    public partial class FinalSchema : Migration
+    public partial class InitialAircraftSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Airplane",
+                name: "Aircraft",
                 columns: table => new
                 {
                     AircraftID = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
@@ -22,7 +22,7 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Airplane", x => x.AircraftID);
+                    table.PrimaryKey("PK_Aircraft", x => x.AircraftID);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,9 +58,9 @@ namespace Server.Migrations
                 {
                     table.PrimaryKey("PK_Flights", x => x.FlightGuid);
                     table.ForeignKey(
-                        name: "FK_Flights_Airplane_AircraftId",
+                        name: "FK_Flights_Aircraft_AircraftId",
                         column: x => x.AircraftId,
-                        principalTable: "Airplane",
+                        principalTable: "Aircraft",
                         principalColumn: "AircraftID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -114,7 +114,7 @@ namespace Server.Migrations
                 name: "Flights");
 
             migrationBuilder.DropTable(
-                name: "Airplane");
+                name: "Aircraft");
         }
     }
 }

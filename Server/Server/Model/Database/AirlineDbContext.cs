@@ -14,7 +14,7 @@ namespace Server.Model.Database
         }
 
         public DbSet <CommercialFlight> Flights { get; set; }
-        public DbSet <Airplane> Airplane { get; set; }
+        public DbSet <Aircraft.Aircraft> Aircraft { get; set; }
         public DbSet <CrewMember> CrewMember { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace Server.Model.Database
             });
 
             // Standard defaults
-            modelBuilder.Entity<Aircraft.Airplane>()
+            modelBuilder.Entity<Aircraft.Aircraft>()
                 .Property(a => a.AircraftID).HasDefaultValueSql("NEWID()");
         }
 

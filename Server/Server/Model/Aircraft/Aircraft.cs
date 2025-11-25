@@ -5,7 +5,7 @@ namespace Server.Model.Aircraft
 {
 
     //THIS IS AIRPLANE NOT AIRCRAFT
-    public class Airplane : IAircraft
+    public class Aircraft : IAircraft
     {
         [Key]
         public Guid AircraftID { get; set; } = Guid.NewGuid();

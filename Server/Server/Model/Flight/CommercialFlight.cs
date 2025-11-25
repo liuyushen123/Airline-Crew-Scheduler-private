@@ -14,7 +14,7 @@ namespace Server.Model.Flight
     public Guid AircraftId { get; set; }
 
     [ForeignKey("AircraftId")]
-    public virtual Airplane Plane { get; set; } = null!;
+    public virtual Aircraft.Aircraft Plane { get; set; } = null!;
 
     [Required]
     public string Origin { get; set; } = string.Empty;
