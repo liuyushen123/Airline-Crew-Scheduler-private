@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Server.Model.Database;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +22,6 @@ builder.Services.AddDbContext<AirlineDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
-
-
-var dbService = app.Services.GetRequiredService<DatabaseService>();
-dbService.TestDatabaseConnection();
 
 
 
