@@ -1,6 +1,84 @@
-@Server_HostAddress = http://localhost:5287
+@Server_HostAddress = https://localhost:7241
 
-GET {{Server_HostAddress}}/weatherforecast/
+GET {{Server_HostAddress}}/api/aircraft
 Accept: application/json
+
+###
+
+
+POST {{Server_HostAddress}}/api/aircraft
+Content-Type: application/json
+
+{
+  "aircraftType": "Boeing",
+  "maxCapacity": 150,
+  "currentLocation": "JFK"
+}
+
+###
+
+
+
+
+
+POST {{Server_HostAddress}}/api/crewmembers
+Content-Type: application/json
+
+{
+  "name": "Ethanol25",
+  "role": "Pilot"
+}
+
+###
+
+
+
+PUT {{Server_HostAddress}}/api/crewmembers/f262e5fa-1263-46a1-8a59-0eb3cd60bb78
+Content-Type: application/json
+
+{
+  "crewMemberId": "f262e5fa-1263-46a1-8a59-0eb3cd60bb78",
+  "name": "Ethanol25",
+  "role": "Pilot",
+  "location": "JFK"
+}
+
+###
+
+GET {{Server_HostAddress}}/api/crewmembers
+
+###
+
+
+
+
+
+POST {{Server_HostAddress}}/api/commercialflights
+Content-Type: application/json
+
+{
+  "aircraftId": "44ea4a41-c92d-4051-be87-b6270880dbf1",
+  "origin": "JFK",
+  "destination": "WTF",
+  "schedTakeoff": "2025-12-01T08:00:00",
+  "schedTouchdown": "2025-12-01T10:30:00"
+}
+
+###
+
+GET {{Server_HostAddress}}/api/commercialflights
+
+###
+
+
+
+POST {{Server_HostAddress}}/api/flightcrews
+Content-Type: application/json
+
+{
+  "flightId": "b0fba648-e2bf-4d4b-9177-b2966337322e",
+  "crewMemberId": "f262e5fa-1263-46a1-8a59-0eb3cd60bb78", 
+  "roleOnFlight": "Pilot"
+}
 
 ###
