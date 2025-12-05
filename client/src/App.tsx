@@ -1,4 +1,36 @@
+import { aircraftService, crewMemberService, flightCrewService, commercialFlightService } from './apiService';
+import React from 'react';
+
 function App() {
+
+  function testApi() {
+    aircraftService.getAircrafts().then(response => {
+      console.log('Aircrafts:', response.data);
+    }).catch(error => {
+      console.error('Error fetching aircrafts:', error);
+    });
+
+    crewMemberService.getCrewMembers().then(response => {
+      console.log('Crew Members:', response.data);
+    }).catch(error => {
+      console.error('Error fetching crew members:', error);
+    });
+
+    commercialFlightService.getCommercialFlights().then(response => {
+      console.log('Commercial Flights:', response.data);
+    }).catch(error => {
+      console.error('Error fetching commercial flights:', error);
+    });
+
+    flightCrewService.getFlightCrews().then(response => {
+      console.log('Flight Crews:', response.data);
+    }).catch(error => {
+      console.error('Error fetching flight crews:', error);
+    });
+  }
+
+  testApi();
+
   return (
     <div className='w-screen h-screen flex flex-col flex-1'>
       
