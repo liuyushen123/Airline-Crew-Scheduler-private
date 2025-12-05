@@ -1,6 +1,6 @@
 using System;
 using Server.Model.Database;
-using Server.Model.Crew;
+using Server.Model.Crew_Member;
 
 namespace Server.Model.Database.Logging {
   class CrewLog : ILog<CrewMember>
@@ -20,6 +20,6 @@ namespace Server.Model.Database.Logging {
 
     public void createUpdateRecord(CrewMember crew, string action) {
       // implement logging logic here
-    };
+    }
   }
 }

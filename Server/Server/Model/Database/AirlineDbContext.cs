@@ -40,6 +40,7 @@ namespace Server.Model.Database
             modelBuilder.Entity<Aircraft.Aircraft>()
                 .Property(a => a.AircraftID).HasDefaultValueSql("NEWID()");
         }
+        public DbSet<Server.Model.Flight_Crew.FlightCrew> FlightCrew { get; set; } = default!;
 
     }
 }

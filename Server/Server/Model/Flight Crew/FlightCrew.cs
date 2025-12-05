@@ -8,11 +8,11 @@ namespace Server.Model.Flight_Crew
     {
         public Guid FlightId { get; set; }
         //silences warning, because flightcrew record will always have a flight
-        public virtual CommercialFlight Flight { get; set; } = null!;
+        public virtual CommercialFlight? Flight { get; set; }
 
         public Guid CrewMemberId { get; set; }
         // same thing with Crewmember
-        public virtual CrewMember CrewMember { get; set; } = null!;
+        public virtual CrewMember? CrewMember { get; set; }
 
 
         [Required]
