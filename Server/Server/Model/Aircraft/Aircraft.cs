@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace Server.Model.Aircraft
 {
 
-    //THIS IS AIRPLANE NOT AIRCRAFT
     public class Aircraft : IAircraft
     {
         [Key]

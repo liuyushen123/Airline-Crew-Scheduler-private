@@ -3,7 +3,7 @@ using Server.Model.Database;
 using Server.Model.Aircraft;
 
 namespace Server.Model.Database.Logging {
-  class AircraftLog : ILog<Aircraft>
+  class AircraftLog : ILog<Aircraft.Aircraft>
   {
 
     public AircraftLog(DatabaseService dbService)
@@ -18,8 +18,8 @@ namespace Server.Model.Database.Logging {
 
     public DatabaseService DBService { get; set; }
 
-    public void createUpdateRecord(Aircraft aircraft, string action) {
+    public void createUpdateRecord(Aircraft.Aircraft aircraft, string action) {
       // implement logging logic here
-    };
+    }
   }
 }

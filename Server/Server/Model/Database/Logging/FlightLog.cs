@@ -3,7 +3,7 @@ using Server.Model.Database;
 using Server.Model.Flight;
 
 namespace Server.Model.Database.Logging {
-  class FlightLog : ILog<Flight>
+  class FlightLog : ILog<CommercialFlight>
   {
 
     public FlightLog(DatabaseService dbService)
@@ -18,8 +18,8 @@ namespace Server.Model.Database.Logging {
 
     public DatabaseService DBService { get; set; }
 
-    public void createUpdateRecord(Flight flight, string action) {
+    public void createUpdateRecord(CommercialFlight flight, string action) {
       // implement logging logic here
-    };
+    }
   }
 }
