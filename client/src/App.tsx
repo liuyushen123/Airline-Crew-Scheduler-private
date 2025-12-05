@@ -1,86 +1,20 @@
-import { aircraftService, crewMemberService, flightCrewService, commercialFlightService } from './apiService';
-import React from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Portal from './components/Portal';
+
 
 function App() {
 
-  function testApi() {
-    aircraftService.getAircrafts().then(response => {
-      console.log('Aircrafts:', response.data);
-    }).catch(error => {
-      console.error('Error fetching aircrafts:', error);
-    });
-
-    crewMemberService.getCrewMembers().then(response => {
-      console.log('Crew Members:', response.data);
-    }).catch(error => {
-      console.error('Error fetching crew members:', error);
-    });
-
-    commercialFlightService.getCommercialFlights().then(response => {
-      console.log('Commercial Flights:', response.data);
-    }).catch(error => {
-      console.error('Error fetching commercial flights:', error);
-    });
-
-    flightCrewService.getFlightCrews().then(response => {
-      console.log('Flight Crews:', response.data);
-    }).catch(error => {
-      console.error('Error fetching flight crews:', error);
-    });
-  }
-
-  testApi();
+  
 
   return (
     <div className='w-screen h-screen flex flex-col flex-1'>
       
-      {/* header */}
-      <header className='bg-blue-500 w-full min-h-[15%]'>
-        header
-      </header>
+      <Header />
 
-      <main className=' h-[80%] w-full flex flex-row'>
+      <Portal />
 
-      {/* flights */}
-      <div className='bg-green-500 h-full w-[70%] flex flex-col'>
-        
-        <div className='flex flex-row w-full h-1/2'>
-          {/* top left corner */}
-          <div className='bg-yellow-300 w-1/2 h-full'>
-            top left
-          </div>
-          
-          {/* top right corner */}
-          <div className='bg-yellow-600 w-1/2 h-full'>
-            top right
-          </div>
-        </div>
-
-        <div className='flex flex-row w-full h-1/2'>
-          {/* bottom left corner */}
-          <div className='bg-yellow-600 w-1/2 h-full'>
-            top left
-          </div>
-          
-          {/* bottom right corner */}
-          <div className='bg-yellow-300 w-1/2 h-full'>
-            top right
-          </div>
-        </div>
-
-      </div>
-
-      {/* Logs */}
-      <div className='w-[30%] h-full bg-red-600'>
-        log sidebar
-      </div>
-
-      </main>
-
-      {/* footer */}
-      <footer className='bg-gray-200 w-full h-[5%]'>
-        footer
-      </footer>
+      <Footer />
       
     </div>
   )

@@ -1,6 +1,5 @@
 import axios from 'axios';
-//@ts-ignore
-import { Aircraft, CommercialFlight, CrewMember, FlightCrew } from './types/types';
+import type { Aircraft, CommercialFlight, CrewMember, FlightCrew } from './types/types';
 
 const api = axios.create({
     baseURL: 'https://localhost:7241/api/',
@@ -41,5 +40,31 @@ export const flightCrewService = {
   createFlightCrew: (data: FlightCrew) => api.post('/FlightCrews', data),
   deleteFlightCrew: (id: string) => api.delete(`/FlightCrews/${id}`),
 };
+
+export function testApi() {
+  aircraftService.getAircrafts().then(response => {
+    console.log('Aircrafts:', response.data);
+  }).catch(error => {
+    console.error('Error fetching aircrafts:', error);
+  });
+
+  crewMemberService.getCrewMembers().then(response => {
+    console.log('Crew Members:', response.data);
+  }).catch(error => {
+    console.error('Error fetching crew members:', error);
+  });
+
+  commercialFlightService.getCommercialFlights().then(response => {
+    console.log('Commercial Flights:', response.data);
+  }).catch(error => {
+    console.error('Error fetching commercial flights:', error);
+  });
+
+  flightCrewService.getFlightCrews().then(response => {
+    console.log('Flight Crews:', response.data);
+  }).catch(error => {
+    console.error('Error fetching flight crews:', error);
+  });
+}
 
 export default api;
