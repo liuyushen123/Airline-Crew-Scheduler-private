@@ -1,4 +1,4 @@
-import { aircraftService, commercialFlightService, crewMemberService, flightCrewService } from "../../apiService";
+import { aircraftService, commercialFlightService, crewMemberService } from "../../apiService";
 import { useState, useEffect } from "react";
 import type { Aircraft } from "../../types/Aircraft";
 import type { CommercialFlight } from "../../types/CommercialFlight";
@@ -50,8 +50,30 @@ export default function Bento({ searchTerm }: { searchTerm: 'crew' | 'flight' | 
   const ActiveComponent = config[searchTerm].component;
 
 
-  const handleUpdate = (data: Aircraft | CrewMember | CommercialFlight) => void {
-    
+  const handleUpdate = async (data: any) => {
+    switch (searchTerm) {
+      case 'aircraft':
+        await aircraftService.updateAircraft(data.aircraftId, data).then(() => {
+          console.log('Updated aircraft', data.aircraftId);
+        }).catch((err: unknown) => {
+          console.error('Error updating aircraft: ', err);
+        });
+        break;
+      case 'crew':
+        await crewMemberService.updateCrewMember(data.crewMemberId, data).then(() => {
+          console.log('Updated crew', data.crewMemberId);
+        }).catch((err: unknown) => {
+          console.error('Error updating crew: ', err);
+        });
+        break;
+      case 'flight':
+        await commercialFlightService.updateCommercialFlight(data.flightId, data).then(() => {
+          console.log('Updated flight', data.flightId);
+        }).catch((err: unknown) => {
+          console.error('Error updating crew: ', err);
+        });
+        break;
+    }
   }
 
   return (

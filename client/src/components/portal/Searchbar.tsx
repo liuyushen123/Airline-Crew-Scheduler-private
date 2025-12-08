@@ -1,15 +1,48 @@
+import { aircraftService, commercialFlightService, crewMemberService } from "../../apiService";
+import { useState } from 'react';
+
 export default function Searchbar(
   { searchTerm, setSearchTerm, onCreate }: 
   { searchTerm: 'crew' | 'flight' | 'aircraft', 
     setSearchTerm: (term: 'crew' | 'flight' | 'aircraft') => void,
     onCreate: () => void }) {
+  const [creationData, setCreationData] = useState(null);
 
   function handleSearchTermChange(event: React.ChangeEvent<HTMLSelectElement>) {
     setSearchTerm(event.target.value as 'crew' | 'flight' | 'aircraft');
   }
 
-  function handleCreate() {
-    
+  const handleCreate = async () => {
+    const data: any = creationData;
+
+    if (!data) {
+      console.log('breaking from creation, no data');
+      return;
+    }
+
+    switch (searchTerm) {
+      case 'aircraft':
+        await aircraftService.createAircraft(data).then(() => {
+          console.log('Created aircraft', data.aircraftId);
+        }).catch((err: unknown) => {
+          console.error('Error updating aircraft: ', err);
+        });
+        break;
+      case 'crew':
+        await crewMemberService.createCrewMember(data).then(() => {
+          console.log('Created crew', data.crewMemberId);
+        }).catch((err: unknown) => {
+          console.error('Error updating crew: ', err);
+        });
+        break;
+      case 'flight':
+        await commercialFlightService.createCommercialFlight(data).then(() => {
+          console.log('Created flight', data.flightId);
+        }).catch((err: unknown) => {
+          console.error('Error updating flight: ', err);
+        });
+        break;
+    }
   }
 
   return (
@@ -18,7 +51,6 @@ export default function Searchbar(
         <option value="crew">Crew Members</option>
         <option value="flight">Flights</option>
         <option value="aircraft">Aircraft</option>
-        <option value="flightCrew">Flight Crew Assignments</option>
       </select>
 
 
