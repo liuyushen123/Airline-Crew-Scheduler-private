@@ -1,5 +1,8 @@
 import axios from 'axios';
-import type { Aircraft, CommercialFlight, CrewMember, FlightCrew } from './types/types';
+import type { Aircraft } from './types/Aircraft';
+import type { CommercialFlight } from './types/CommercialFlight';
+import type { CrewMember } from './types/CrewMember';
+import type { FlightCrew } from './types/FlightCrew';
 
 const api = axios.create({
     baseURL: 'https://localhost:7241/api/',
