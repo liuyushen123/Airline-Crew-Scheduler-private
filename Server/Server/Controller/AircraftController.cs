@@ -25,14 +25,14 @@ namespace Server.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Aircraft>>> GetAircraft()
         {
-            return await _context.Aircraft.ToListAsync();
+            return await _context.Aircrafts.ToListAsync();
         }
 
         // GET: api/Aircraft/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Aircraft>> GetAircraft(Guid id)
         {
-            var aircraft = await _context.Aircraft.FindAsync(id);
+            var aircraft = await _context.Aircrafts.FindAsync(id);
 
             if (aircraft == null)
             {
@@ -78,7 +78,7 @@ namespace Server.Controller
         [HttpPost]
         public async Task<ActionResult<Aircraft>> PostAircraft(Aircraft aircraft)
         {
-            _context.Aircraft.Add(aircraft);
+            _context.Aircrafts.Add(aircraft);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAircraft", new { id = aircraft.AircraftID }, aircraft);
@@ -88,13 +88,13 @@ namespace Server.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAircraft(Guid id)
         {
-            var aircraft = await _context.Aircraft.FindAsync(id);
+            var aircraft = await _context.Aircrafts.FindAsync(id);
             if (aircraft == null)
             {
                 return NotFound();
             }
 
-            _context.Aircraft.Remove(aircraft);
+            _context.Aircrafts.Remove(aircraft);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace Server.Controller
 
         private bool AircraftExists(Guid id)
         {
-            return _context.Aircraft.Any(e => e.AircraftID == id);
+            return _context.Aircrafts.Any(e => e.AircraftID == id);
         }
     }
 }

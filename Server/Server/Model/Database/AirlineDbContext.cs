@@ -3,6 +3,7 @@ using Server.Model.Aircraft;
 using Server.Model.Crew_Member;
 using Server.Model.Flight;
 using Server.Model.Flight_Crew;
+using Server.Model.Update;
 
 
 namespace Server.Model.Database
@@ -14,8 +15,10 @@ namespace Server.Model.Database
         }
 
         public DbSet <CommercialFlight> Flights { get; set; }
-        public DbSet <Aircraft.Aircraft> Aircraft { get; set; }
-        public DbSet <CrewMember> CrewMember { get; set; }
+        public DbSet <Aircraft.Aircraft> Aircrafts { get; set; }
+        public DbSet <CrewMember> CrewMembers { get; set; }
+
+        public DbSet<UpdateRecord> UpdateRecords {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
