@@ -16,8 +16,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 
-builder.Services.AddScoped<DatabaseService>();
-
 builder.Services.AddDbContext<AirlineDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
