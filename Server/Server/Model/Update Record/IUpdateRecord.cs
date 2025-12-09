@@ -2,10 +2,12 @@
 {
     public interface IUpdateRecord
     {
-        int UpdateId { get; set; }
+        Guid UpdateId { get; set; }
         DateTime UpdateTime { get; set; }
+        string EntityName { get; set; }
+        Guid EntityId { get; set; }
         string UpdateType { get; set; }
-        string Description { get; set; }
+        string User { get; set; }
 
 
     }
