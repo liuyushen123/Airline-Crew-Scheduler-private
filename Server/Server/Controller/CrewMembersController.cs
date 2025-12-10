@@ -25,14 +25,14 @@ namespace Server.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CrewMember>>> GetCrewMember()
         {
-            return await _context.CrewMember.ToListAsync();
+            return await _context.CrewMembers.ToListAsync();
         }
 
         // GET: api/CrewMembers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CrewMember>> GetCrewMember(Guid id)
         {
-            var crewMember = await _context.CrewMember.FindAsync(id);
+            var crewMember = await _context.CrewMembers.FindAsync(id);
 
             if (crewMember == null)
             {
@@ -78,7 +78,7 @@ namespace Server.Controller
         [HttpPost]
         public async Task<ActionResult<CrewMember>> PostCrewMember(CrewMember crewMember)
         {
-            _context.CrewMember.Add(crewMember);
+            _context.CrewMembers.Add(crewMember);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCrewMember", new { id = crewMember.CrewMemberId }, crewMember);
@@ -88,13 +88,13 @@ namespace Server.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCrewMember(Guid id)
         {
-            var crewMember = await _context.CrewMember.FindAsync(id);
+            var crewMember = await _context.CrewMembers.FindAsync(id);
             if (crewMember == null)
             {
                 return NotFound();
             }
 
-            _context.CrewMember.Remove(crewMember);
+            _context.CrewMembers.Remove(crewMember);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace Server.Controller
 
         private bool CrewMemberExists(Guid id)
         {
-            return _context.CrewMember.Any(e => e.CrewMemberId == id);
+            return _context.CrewMembers.Any(e => e.CrewMemberId == id);
         }
     }
 }

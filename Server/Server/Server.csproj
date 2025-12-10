@@ -20,7 +20,6 @@
     <ItemGroup>
       <Folder Include="Controller\Validation\" />
       <Folder Include="Model\Database\Logging\" />
-      <Folder Include="Model\Update Record\" />
       <Folder Include="Testing\" />
       <Folder Include="View\" />
     </ItemGroup>
