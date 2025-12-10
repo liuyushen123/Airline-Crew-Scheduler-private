@@ -1,64 +1,31 @@
-import { aircraftService, commercialFlightService, crewMemberService } from "../../apiService";
-import { useState } from 'react';
+interface Props {
+  searchTerm: 'crew' | 'flight' | 'aircraft';
+  setSearchTerm: (term: 'crew' | 'flight' | 'aircraft') => void;
+  onOpenCreate: () => void;
+}
 
-export default function Searchbar(
-  { searchTerm, setSearchTerm, onCreate }: 
-  { searchTerm: 'crew' | 'flight' | 'aircraft', 
-    setSearchTerm: (term: 'crew' | 'flight' | 'aircraft') => void,
-    onCreate: () => void }) {
-  const [creationData, setCreationData] = useState(null);
-
-  function handleSearchTermChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSearchTerm(event.target.value as 'crew' | 'flight' | 'aircraft');
-  }
-
-  const handleCreate = async () => {
-    const data: any = creationData;
-
-    if (!data) {
-      console.log('breaking from creation, no data');
-      return;
-    }
-
-    switch (searchTerm) {
-      case 'aircraft':
-        await aircraftService.createAircraft(data).then(() => {
-          console.log('Created aircraft', data.aircraftId);
-        }).catch((err: unknown) => {
-          console.error('Error updating aircraft: ', err);
-        });
-        break;
-      case 'crew':
-        await crewMemberService.createCrewMember(data).then(() => {
-          console.log('Created crew', data.crewMemberId);
-        }).catch((err: unknown) => {
-          console.error('Error updating crew: ', err);
-        });
-        break;
-      case 'flight':
-        await commercialFlightService.createCommercialFlight(data).then(() => {
-          console.log('Created flight', data.flightId);
-        }).catch((err: unknown) => {
-          console.error('Error updating flight: ', err);
-        });
-        break;
-    }
-  }
-
+export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className='w-full h-12 bg-gray-300 flex flex-row items-center justify-between md:px-20 px-4 font-light'>
-      <select value={searchTerm} onChange={handleSearchTermChange}>
-        <option value="crew">Crew Members</option>
-        <option value="flight">Flights</option>
-        <option value="aircraft">Aircraft</option>
-      </select>
-
+    <div className='w-full h-16 bg-gray-300 flex flex-row items-center justify-between md:px-20 px-4 font-light shadow-md z-10'>
+      <div className="flex flex-col">
+        <label className="text-xs font-bold text-gray-600">Filter By</label>
+        <select 
+          value={searchTerm} 
+          onChange={(e) => setSearchTerm(e.target.value as any)}
+          className="p-2 rounded border border-gray-400"
+        >
+          <option value="crew">Crew Members</option>
+          <option value="flight">Flights</option>
+          <option value="aircraft">Aircraft</option>
+        </select>
+      </div>
 
       <button
-        onClick={() => handleCreate()}
-        className='bg-gray-400 hover:bg-gray-500 rounded-xl py-1 px-4'
-      >Create</button>
-
+        onClick={onOpenCreate}
+        className='bg-blue-600 hover:bg-blue-700 text-white transition rounded-xl py-2 px-6 font-bold'
+      >
+        + Create New
+      </button>
     </div>
   );
 }

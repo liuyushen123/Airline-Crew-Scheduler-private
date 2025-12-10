@@ -1,22 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import type { Aircraft } from "../../types/Aircraft";
 
-export default function AircraftForm() {
-  const [aircraftType, setAircraftType] = useState("");
+interface Props {
+  initialData?: Aircraft | null;
+  onSubmit: (data: Aircraft) => void;
+  onCancel: () => void;
+}
+
+export default function AircraftForm({ initialData, onSubmit, onCancel }: Props) {
+  const [formData, setFormData] = useState<Aircraft>({
+    aircraftId: "",
+    aircraftType: "",
+    maxCapacity: 0,
+    currentLocation: "",
+  });
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
+
+  const handleTypeChange = (type: string) => {
+    let cap = 0;
+    if (type === "GBR-10") cap = 45;
+    if (type === "NU-150") cap = 75;
+    
+    setFormData({ ...formData, aircraftType: type, maxCapacity: cap });
+  };
 
   return (
-    <div className="flex flex-col gap-2 p-2 text-sm">
-
+    <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
+      <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Aircraft</h3>
+      
       <label className="flex flex-col">
         Aircraft ID
-        <input className="border p-1" type="text" placeholder="Guid" />
+        <input 
+          className="border p-2 rounded disabled:bg-gray-100" 
+          type="text" 
+          placeholder="Guid"
+          value={formData.aircraftId}
+          disabled={!!initialData}
+          onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
+        />
       </label>
 
       <label className="flex flex-col">
         Aircraft Type
         <select
-          className="border p-1"
-          value={aircraftType}
-          onChange={(e) => setAircraftType(e.target.value)}
+          className="border p-2 rounded"
+          value={formData.aircraftType}
+          onChange={(e) => handleTypeChange(e.target.value)}
         >
           <option value="">Select Type</option>
           <option value="GBR-10">GBR-10 (45 seats)</option>
@@ -26,7 +60,11 @@ export default function AircraftForm() {
 
       <label className="flex flex-col">
         Current Location
-        <select className="border p-1">
+        <select 
+          className="border p-2 rounded"
+          value={formData.currentLocation}
+          onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
+        >
           <option value="">Select Airport</option>
           <option value="Lincoln">Lincoln, Nebraska</option>
           <option value="Iowa City">Iowa City, Iowa</option>
@@ -35,9 +73,15 @@ export default function AircraftForm() {
         </select>
       </label>
 
-      <button className="bg-black text-white p-1 mt-2">
-        Create Aircraft (this does nothin)
-      </button>
+      <div className="flex gap-2 mt-4">
+        <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
+        <button 
+          onClick={() => onSubmit(formData)} 
+          className="bg-black text-white px-4 py-2 rounded flex-1"
+        >
+          {initialData ? "Update" : "Create"}
+        </button>
+      </div>
     </div>
   );
 }
