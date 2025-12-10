@@ -37,8 +37,8 @@ namespace Server.Controller.Testing
         public async Task GetAircraft_ReturnsAllItems()
         {
             //arrange
-            _context.Aircraft.Add(new Model.Aircraft.Aircraft { AircraftType = "A1", CurrentLocation = "JFK" });
-            _context.Aircraft.Add(new Model.Aircraft.Aircraft { AircraftType = "B1", CurrentLocation = "GFK" });
+            _context.Aircrafts.Add(new Model.Aircraft.Aircraft { AircraftType = "A1", CurrentLocation = "JFK" });
+            _context.Aircrafts.Add(new Model.Aircraft.Aircraft { AircraftType = "B1", CurrentLocation = "GFK" });
             await _context.SaveChangesAsync();
 
             var controller = new AircraftController(_context);
@@ -56,7 +56,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.Aircraft.Add(new Aircraft { AircraftID = id, AircraftType = "Cessna", CurrentLocation = "OMA" });
+            _context.Aircrafts.Add(new Aircraft { AircraftID = id, AircraftType = "Cessna", CurrentLocation = "OMA" });
             await _context.SaveChangesAsync();
 
             var controller = new AircraftController(_context);
@@ -89,7 +89,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.Aircraft.Add(new Aircraft { AircraftID = id, AircraftType = "OldType", CurrentLocation = "OldLoc" });
+            _context.Aircrafts.Add(new Aircraft { AircraftID = id, AircraftType = "OldType", CurrentLocation = "OldLoc" });
             await _context.SaveChangesAsync();
 
             _context.ChangeTracker.Clear();
@@ -104,7 +104,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult)); 
 
-            var dbPlane = await _context.Aircraft.FindAsync(id);
+            var dbPlane = await _context.Aircrafts.FindAsync(id);
             Assert.AreEqual("NewType", dbPlane.AircraftType);
         }
 
@@ -152,7 +152,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult));
 
-            var dbPlane = await _context.Aircraft.FirstOrDefaultAsync(a => a.AircraftType == "TestJet");
+            var dbPlane = await _context.Aircrafts.FirstOrDefaultAsync(a => a.AircraftType == "TestJet");
             Assert.IsNotNull(dbPlane);
             Assert.AreEqual("TestLoc", dbPlane.CurrentLocation);
         }
@@ -164,7 +164,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.Aircraft.Add(new Aircraft { AircraftID = id, AircraftType = "DeleteMe" });
+            _context.Aircrafts.Add(new Aircraft { AircraftID = id, AircraftType = "DeleteMe" });
             await _context.SaveChangesAsync();
 
             var controller = new AircraftController(_context);
@@ -175,7 +175,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
 
-            Assert.AreEqual(0, _context.Aircraft.Count());
+            Assert.AreEqual(0, _context.Aircrafts.Count());
         }
         [TestMethod()]
         public async Task DeleteAircraft_ReturnsNotFound_WhenMissing()

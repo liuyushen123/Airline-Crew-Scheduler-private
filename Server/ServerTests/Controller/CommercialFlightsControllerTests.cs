@@ -37,7 +37,7 @@ namespace Server.Controller.Testing
         private async Task<Guid> CreateTestAircraft()
         {
             var planeId = Guid.NewGuid();
-            _context.Aircraft.Add(new Aircraft
+            _context.Aircrafts.Add(new Aircraft
             {
                 AircraftID = planeId,
                 AircraftType = "test",

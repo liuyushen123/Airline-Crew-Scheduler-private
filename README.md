@@ -116,7 +116,7 @@ The backend of Cornhusker Airways is responsible for handling all scheduling log
   </li>
 
   <li>
-    <a href="https://github.com/toschaef">Thomas Schaefer</a>
+    <a href="https://github.com/toschaef">Thomas Osborne Michael Schaefer</a>
   </li>
 
   <li>
@@ -126,9 +126,11 @@ The backend of Cornhusker Airways is responsible for handling all scheduling log
   
 
   <li>
-    <a href="https://github.com/Ricky-1553">Rushik</a>
+    <a href="https://github.com/estrasburg">Evan Strasburg</a>
   <li>
-    <a href="https://github.com/R-teach-des">Rushik</a>
+    <a href="https://github.com/R-teach-des">Rushikkumar Prajapati</a>
+    <a href="https://github.com/Ricky-1553">Rushik</a>
   
       
 </ul>
+
