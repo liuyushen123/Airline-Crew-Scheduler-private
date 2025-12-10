@@ -2,9 +2,8 @@ namespace Server.Model.Crew;
 
 public interface ICrewMember
 {
-    int CrewMemberID { get; }
-    string FirstName { get; set; }
-    string LastName { get; set; }
+    Guid CrewMemberId { get; set; }
+    string Name { get; set; }
     string Role { get; set; }
     string Location { get; set; }
 }
