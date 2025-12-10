@@ -44,8 +44,8 @@ namespace Server.Controller.Testing
         public async Task CrewMembersControllerTest_ReturnsAllItems()
         {
             //arrange
-            _context.CrewMember.Add(new Model.Crew_Member.CrewMember { CrewMemberId = Guid.NewGuid(), Name = "JFK", Role = "Pilot", Location = "UnderTheBridge"});
-            _context.CrewMember.Add(new Model.Crew_Member.CrewMember { CrewMemberId = Guid.NewGuid(), Name = "GFK", Role = "Pilot", Location = "MyCloset"});
+            _context.CrewMembers.Add(new Model.Crew_Member.CrewMember { CrewMemberId = Guid.NewGuid(), Name = "JFK", Role = "Pilot", Location = "UnderTheBridge"});
+            _context.CrewMembers.Add(new Model.Crew_Member.CrewMember { CrewMemberId = Guid.NewGuid(), Name = "GFK", Role = "Pilot", Location = "MyCloset"});
             await _context.SaveChangesAsync();
 
             var controller = new CrewMembersController(_context);
@@ -63,7 +63,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.CrewMember.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "UnderTheBridge" });
+            _context.CrewMembers.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "UnderTheBridge" });
             await _context.SaveChangesAsync();
 
             var controller = new CrewMembersController(_context);
@@ -94,7 +94,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.CrewMember.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "UnderTheBridge" });
+            _context.CrewMembers.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "UnderTheBridge" });
             await _context.SaveChangesAsync();
 
             _context.ChangeTracker.Clear();
@@ -109,7 +109,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
 
-            var dbCrewMember = await _context.CrewMember.FindAsync(id);
+            var dbCrewMember = await _context.CrewMembers.FindAsync(id);
             Assert.AreEqual("NewType", dbCrewMember.Name);
             Assert.AreEqual("NewType", dbCrewMember.Role);
             Assert.AreEqual("NewLoc", dbCrewMember.Location);
@@ -160,7 +160,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult));
 
-            var dbCrewMember = await _context.CrewMember.FirstOrDefaultAsync(a => a.Name == "JFK");
+            var dbCrewMember = await _context.CrewMembers.FirstOrDefaultAsync(a => a.Name == "JFK");
             Assert.IsNotNull(dbCrewMember);
             Assert.AreEqual("UnderTheBridge", dbCrewMember.Location);
         }
@@ -172,7 +172,7 @@ namespace Server.Controller.Testing
         {
             // Arrange
             var id = Guid.NewGuid();
-            _context.CrewMember.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "DeleteMe" });
+            _context.CrewMembers.Add(new Model.Crew_Member.CrewMember { CrewMemberId = id, Name = "JFK", Role = "Pilot", Location = "DeleteMe" });
             await _context.SaveChangesAsync();
 
             var controller = new CrewMembersController(_context);
@@ -183,7 +183,7 @@ namespace Server.Controller.Testing
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
 
-            Assert.AreEqual(0, _context.CrewMember.Count());
+            Assert.AreEqual(0, _context.CrewMembers.Count());
         }
         [TestMethod()]
         public async Task DeleteCrewMember_ReturnsNotFound_WhenMissing()
