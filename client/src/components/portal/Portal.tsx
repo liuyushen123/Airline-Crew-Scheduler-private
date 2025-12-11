@@ -106,7 +106,7 @@ export default function Portal() {
         onOpenCreate={handleOpenCreate}
       />
 
-      <div className='flex-1 overflow-hidden bg-gray-100'>
+      <div className='flex-1 overflow-hidden bg-slate-50'>
         <Bento 
           searchTerm={searchTerm} 
           refreshTrigger={refreshTrigger}
