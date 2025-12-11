@@ -12,8 +12,8 @@ using Server.Model.Database;
 namespace Server.Migrations
 {
     [DbContext(typeof(AirlineDbContext))]
-    [Migration("20251124235852_InitialAircraftSchema")]
-    partial class InitialAircraftSchema
+    [Migration("20251211043132_RefactoredInitial")]
+    partial class RefactoredInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace Server.Migrations
 
                     b.HasKey("AircraftID");
 
-                    b.ToTable("Aircraft");
+                    b.ToTable("Aircrafts");
                 });
 
             modelBuilder.Entity("Server.Model.Crew_Member.CrewMember", b =>
@@ -69,7 +69,7 @@ namespace Server.Migrations
 
                     b.HasKey("CrewMemberId");
 
-                    b.ToTable("CrewMember");
+                    b.ToTable("CrewMembers");
                 });
 
             modelBuilder.Entity("Server.Model.Flight.CommercialFlight", b =>
@@ -131,6 +131,31 @@ namespace Server.Migrations
                     b.HasIndex("CrewMemberId");
 
                     b.ToTable("FlightCrew");
+                });
+
+            modelBuilder.Entity("Server.Model.Update.UpdateRecord", b =>
+                {
+                    b.Property<Guid>("UpdateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UpdateId");
+
+                    b.ToTable("UpdateRecords");
                 });
 
             modelBuilder.Entity("Server.Model.Flight.CommercialFlight", b =>

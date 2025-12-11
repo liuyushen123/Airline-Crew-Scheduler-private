@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialAircraftSchema : Migration
+    public partial class RefactoredInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Aircraft",
+                name: "Aircrafts",
                 columns: table => new
                 {
                     AircraftID = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
@@ -22,11 +22,11 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Aircraft", x => x.AircraftID);
+                    table.PrimaryKey("PK_Aircrafts", x => x.AircraftID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CrewMember",
+                name: "CrewMembers",
                 columns: table => new
                 {
                     CrewMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -36,7 +36,22 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CrewMember", x => x.CrewMemberId);
+                    table.PrimaryKey("PK_CrewMembers", x => x.CrewMemberId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UpdateRecords",
+                columns: table => new
+                {
+                    UpdateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EntityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdateType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UpdateRecords", x => x.UpdateId);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,9 +73,9 @@ namespace Server.Migrations
                 {
                     table.PrimaryKey("PK_Flights", x => x.FlightGuid);
                     table.ForeignKey(
-                        name: "FK_Flights_Aircraft_AircraftId",
+                        name: "FK_Flights_Aircrafts_AircraftId",
                         column: x => x.AircraftId,
-                        principalTable: "Aircraft",
+                        principalTable: "Aircrafts",
                         principalColumn: "AircraftID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,9 +92,9 @@ namespace Server.Migrations
                 {
                     table.PrimaryKey("PK_FlightCrew", x => new { x.FlightId, x.CrewMemberId });
                     table.ForeignKey(
-                        name: "FK_FlightCrew_CrewMember_CrewMemberId",
+                        name: "FK_FlightCrew_CrewMembers_CrewMemberId",
                         column: x => x.CrewMemberId,
-                        principalTable: "CrewMember",
+                        principalTable: "CrewMembers",
                         principalColumn: "CrewMemberId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -108,13 +123,16 @@ namespace Server.Migrations
                 name: "FlightCrew");
 
             migrationBuilder.DropTable(
-                name: "CrewMember");
+                name: "UpdateRecords");
+
+            migrationBuilder.DropTable(
+                name: "CrewMembers");
 
             migrationBuilder.DropTable(
                 name: "Flights");
 
             migrationBuilder.DropTable(
-                name: "Aircraft");
+                name: "Aircrafts");
         }
     }
 }

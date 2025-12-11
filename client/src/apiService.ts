@@ -36,6 +36,10 @@ export const crewMemberService = {
   deleteCrewMember: (id: string) => api.delete(`/crewmembers/${id}`),
 };
 
+export const updateRecordService = {
+  getUpdateRecords: () => api.get('/updaterecords'),
+}
+
 export const flightCrewService = {
   getFlightCrews: () => api.get('/flightcrews'),
   getFlightCrewById: (id: string) => api.get(`/flightcrews/${id}`),
