@@ -68,7 +68,7 @@ useEffect(() => {
                 key={index}
                 data={item}
                 onUpdate={() => onEdit(item)}
-                onDelete={() => onDelete(item.aircraftId || item.flightGuid || item.crewMemberId)}
+                onDelete={() => onDelete(item.aircraftID || item.flightGuid || item.crewMemberId)}
               />
             ))}
           </div>

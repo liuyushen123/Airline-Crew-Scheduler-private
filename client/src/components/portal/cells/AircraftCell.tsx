@@ -11,7 +11,7 @@ export default function AircraftCell({ data, onUpdate, onDelete }: Props) {
     <div className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm flex flex-col gap-2 hover:bg-gray-50 transition-colors">
       <div className="flex justify-between items-start">
         <div>
-          <h2 className="text-lg font-bold text-gray-800">Aircraft ID: {data.aircraftId}</h2>
+          <h2 className="text-lg font-bold text-gray-800">Aircraft ID: {data.aircraftID}</h2>
           <p className="text-sm text-gray-600 font-mono">{data.aircraftType}</p>
         </div>
 
@@ -22,7 +22,7 @@ export default function AircraftCell({ data, onUpdate, onDelete }: Props) {
           Edit
         </button>
         <button 
-          onClick={() => onDelete(data.aircraftId)}
+          onClick={() => onDelete(data.aircraftID)}
           className="bg-gray-100 hover:bg-red-300 text-gray-700 px-3 py-1 rounded text-xs font-semibold transition"
         >
           Delete

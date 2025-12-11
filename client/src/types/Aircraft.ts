@@ -1,7 +1,7 @@
 import type { CommercialFlight } from './CommercialFlight';
 
 export interface Aircraft {
-  aircraftId: string;
+  aircraftID: string;
   aircraftType: string;
   maxCapacity: number;
   currentLocation: string;

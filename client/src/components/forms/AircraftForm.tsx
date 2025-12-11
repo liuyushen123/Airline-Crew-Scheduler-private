@@ -9,7 +9,7 @@ interface Props {
 
 export default function AircraftForm({ initialData, onSubmit, onCancel }: Props) {
   const [formData, setFormData] = useState<Aircraft>({
-    aircraftId: "",
+    aircraftID: "",
     aircraftType: "",
     maxCapacity: 0,
     currentLocation: "",
@@ -33,7 +33,7 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
     const payload = { ...formData };
 
     if (!initialData) {
-      delete (payload as any).aircraftId;
+      delete (payload as any).aircraftID;
     }
 
     onSubmit(payload);

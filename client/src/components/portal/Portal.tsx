@@ -62,7 +62,7 @@ const handleFormSubmit = async (data: any) => {
 
       if (searchTerm === 'aircraft') {
         if (isUpdate) {
-            await aircraftService.updateAircraft(editingItem.aircraftIF, data);
+            await aircraftService.updateAircraft(editingItem.aircraftID, data);
         } else {
             await aircraftService.createAircraft(data);
         }
@@ -105,7 +105,7 @@ const handleFormSubmit = async (data: any) => {
   };
 
   return (
-    <main className='h-full w-full flex flex-col relative'>
+    <main className='h-full w-3/4 flex flex-col relative'>
       
       <Searchbar
         searchTerm={searchTerm}
