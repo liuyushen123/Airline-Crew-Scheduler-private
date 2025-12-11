@@ -7,8 +7,5 @@
         string EntityName { get; set; }
         Guid EntityId { get; set; }
         string UpdateType { get; set; }
-        string User { get; set; }
-
-
     }
 }

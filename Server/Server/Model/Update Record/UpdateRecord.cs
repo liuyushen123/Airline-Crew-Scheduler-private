@@ -19,6 +19,5 @@ namespace Server.Model.Update
         [Required]
         public string UpdateType { get; set; } = string.Empty;
 
-        public string User { get; set; } = "API_user"; 
     }
 }

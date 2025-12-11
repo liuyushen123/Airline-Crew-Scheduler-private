@@ -52,7 +52,23 @@ namespace Server.Controller
                 return BadRequest();
             }
 
-            _context.Entry(crewMember).State = EntityState.Modified;
+            var existingCrew = await _context.CrewMembers.FindAsync(id);
+            if (existingCrew == null)
+            {
+                return NotFound();
+            }
+
+            string logMessage = $"Updated Crew {existingCrew.Name}. " + $"Role: {existingCrew.Role} -> {crewMember.Role}";
+
+            existingCrew.Name = crewMember.Name;
+            existingCrew.Role = crewMember.Role;
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CrewMember",
+                EntityId = existingCrew.CrewMemberId,
+                UpdateType = logMessage,
+            });
 
             try
             {
@@ -79,6 +95,13 @@ namespace Server.Controller
         public async Task<ActionResult<CrewMember>> PostCrewMember(CrewMember crewMember)
         {
             _context.CrewMembers.Add(crewMember);
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CrewMember",
+                EntityId = crewMember.CrewMemberId,
+                UpdateType = $"Hired new Crew Member: {crewMember.Name} ({crewMember.Role})",
+            });
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCrewMember", new { id = crewMember.CrewMemberId }, crewMember);
@@ -93,6 +116,13 @@ namespace Server.Controller
             {
                 return NotFound();
             }
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CrewMember",
+                EntityId = crewMember.CrewMemberId,
+                UpdateType = $"Fired/Removed Crew Member: {crewMember.Name} ({crewMember.Role})",
+            });
 
             _context.CrewMembers.Remove(crewMember);
             await _context.SaveChangesAsync();
