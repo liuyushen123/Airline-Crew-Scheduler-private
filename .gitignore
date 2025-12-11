@@ -135,19 +135,27 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-# =========================
-# Modern Visual Studio & EF Core Additions
-# =========================
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# The main culprit for .vsidx files
-.vs/
-*.vsidx
+*/node_modules
+dist
+dist-ssr
+*.local
 
-# SQLite / Database temp files
-*.db-shm
-*.db-wal
-*.sqlite-shm
-*.sqlite-wal
-
-# Entity Framework Core Migration scripts
-bundle.js
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
