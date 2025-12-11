@@ -60,7 +60,26 @@ namespace Server.Controller
                 return BadRequest();
             }
 
-            _context.Entry(commercialFlight).State = EntityState.Modified;
+            var existingFlight = await _context.Flights.FindAsync(id);
+            if (existingFlight == null)
+            {
+                return NotFound();
+            }
+
+            string logMessage = $"Updated Flight {existingFlight.FlightGuid}. " + $"Route: {existingFlight.Origin}-{existingFlight.Destination} -> {commercialFlight.Origin}-{commercialFlight.Destination}";
+
+            existingFlight.AircraftId = commercialFlight.AircraftId;
+            existingFlight.Origin = commercialFlight.Origin;
+            existingFlight.Destination = commercialFlight.Destination;
+            existingFlight.SchedTakeoff = commercialFlight.SchedTakeoff;
+            existingFlight.SchedTouchdown = commercialFlight.SchedTouchdown;
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CommercialFlight",
+                EntityId = existingFlight.FlightGuid,
+                UpdateType = logMessage,
+            });
 
             try
             {
@@ -87,6 +106,12 @@ namespace Server.Controller
         public async Task<ActionResult<CommercialFlight>> PostCommercialFlight(CommercialFlight commercialFlight)
         {
             _context.Flights.Add(commercialFlight);
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CommercialFlight",
+                EntityId = commercialFlight.FlightGuid,
+                UpdateType = $"Scheduled New Flight: {commercialFlight.Origin} -> {commercialFlight.Destination}",
+            });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCommercialFlight", new { id = commercialFlight.FlightGuid }, commercialFlight);
@@ -101,6 +126,13 @@ namespace Server.Controller
             {
                 return NotFound();
             }
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "CommercialFlight",
+                EntityId = commercialFlight.FlightGuid,
+                UpdateType = $"Cancelled Flight: {commercialFlight.Origin} -> {commercialFlight.Destination}",
+            });
 
             _context.Flights.Remove(commercialFlight);
             await _context.SaveChangesAsync();

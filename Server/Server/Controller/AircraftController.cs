@@ -52,7 +52,25 @@ namespace Server.Controller
                 return BadRequest();
             }
 
-            _context.Entry(aircraft).State = EntityState.Modified;
+            var existingPlane = await _context.Aircrafts.FindAsync(id);
+            if (existingPlane == null)
+            {
+                return NotFound();
+            }
+
+            string logMessage = $"Updated Aircraft {existingPlane.AircraftType}. " + $"Loc: {existingPlane.CurrentLocation} -> {aircraft.CurrentLocation}";
+
+            existingPlane.AircraftType = aircraft.AircraftType;
+            existingPlane.MaxCapacity = aircraft.MaxCapacity;
+            existingPlane.CurrentLocation = aircraft.CurrentLocation;
+
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "Aircraft",
+                EntityId = existingPlane.AircraftID,
+                UpdateType = logMessage,
+            });
 
             try
             {
@@ -79,6 +97,14 @@ namespace Server.Controller
         public async Task<ActionResult<Aircraft>> PostAircraft(Aircraft aircraft)
         {
             _context.Aircrafts.Add(aircraft);
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "Aircraft",
+                EntityId = aircraft.AircraftID,
+                UpdateType = $"Created new Aircraft: {aircraft.AircraftType} at {aircraft.CurrentLocation}",
+            });
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAircraft", new { id = aircraft.AircraftID }, aircraft);
@@ -93,6 +119,13 @@ namespace Server.Controller
             {
                 return NotFound();
             }
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "Aircraft",
+                EntityId = aircraft.AircraftID,
+                UpdateType = $"Deleted Aircraft: {aircraft.AircraftType} (Was at {aircraft.CurrentLocation})",
+            });
 
             _context.Aircrafts.Remove(aircraft);
             await _context.SaveChangesAsync();

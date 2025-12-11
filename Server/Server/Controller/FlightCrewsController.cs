@@ -59,6 +59,14 @@ namespace Server.Controller
             }
 
             _context.FlightCrew.Add(flightCrew);
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "FlightCrew",
+                EntityId = flightCrew.FlightId,
+                UpdateType = $"Crew Assignment: Added CrewMember {flightCrew.CrewMemberId} to Flight",
+            });
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -87,6 +95,14 @@ namespace Server.Controller
             {
                 return NotFound();
             }
+
+            _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
+            {
+                EntityName = "FlightCrew",
+                EntityId = flightId,
+                UpdateType = $"Crew Removal: Removed CrewMember {crewMemberId} from Flight",
+
+            });
 
             _context.FlightCrew.Remove(flightCrew);
             await _context.SaveChangesAsync();
