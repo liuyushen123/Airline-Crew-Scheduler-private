@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { CommercialFlight } from "../../types/CommercialFlight";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
   const [formData, setFormData] = useState<CommercialFlight>({
     flightGuid: "",
-    aircraftId: "",
+    aircraftId: "", // we could auto-assign this in backend or have select for it
     origin: "",
     destination: "",
     schedTakeoff: "",
@@ -25,32 +25,23 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
     if (initialData) setFormData(initialData);
   }, [initialData]);
 
+  const handleSubmit = () => {
+    const payload = { ...formData };
+
+    if (!initialData) {
+      delete (payload as any).flightGuid;
+    }
+
+    if (payload.aircraftId === "") {
+        (payload as any).aircraftId = null;
+    }
+
+    onSubmit(payload);
+  };
+
   return (
     <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
       <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Flight</h3>
-
-      <label className="flex flex-col">
-        Flight ID
-        <input 
-          className="border p-2 rounded disabled:bg-gray-100" 
-          type="text" 
-          placeholder="Guid" 
-          value={formData.flightGuid}
-          disabled={!!initialData}
-          onChange={(e) => setFormData({...formData, flightGuid: e.target.value})}
-        />
-      </label>
-
-      <label className="flex flex-col">
-        Aircraft ID
-        <input 
-          className="border p-2 rounded" 
-          type="text" 
-          placeholder="Aircraft Guid" 
-          value={formData.aircraftId}
-          onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
-        />
-      </label>
 
       <label className="flex flex-col">
         Origin
@@ -94,7 +85,7 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
 
       <div className="flex gap-2 mt-4">
         <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
-        <button onClick={() => onSubmit(formData)} className="bg-black text-white px-4 py-2 rounded flex-1">
+        <button onClick={handleSubmit} className="bg-black text-white px-4 py-2 rounded flex-1">
           {initialData ? "Update" : "Create"}
         </button>
       </div>

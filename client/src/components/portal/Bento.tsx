@@ -1,5 +1,4 @@
 import { aircraftService, commercialFlightService, crewMemberService } from "../../apiService";
-// import { aircraftService, commercialFlightService, crewMemberService } from "../../testApiService";
 import { useState, useEffect } from "react";
 
 import AircraftCell from "./cells/AircraftCell";
@@ -69,7 +68,7 @@ useEffect(() => {
                 key={index}
                 data={item}
                 onUpdate={() => onEdit(item)}
-                onDelete={() => onDelete(item.aircraftId || item.flightGuid || item.crewMemberId)}
+                onDelete={() => onDelete(item.aircraftID || item.flightGuid || item.crewMemberId)}
               />
             ))}
           </div>

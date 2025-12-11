@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { CrewMember } from "../../types/CrewMember";
 
 interface Props {
@@ -19,21 +19,19 @@ export default function CrewMemberForm({ initialData, onSubmit, onCancel }: Prop
     if (initialData) setFormData(initialData);
   }, [initialData]);
 
+  const handleSubmit = () => {
+    const payload = { ...formData };
+    
+    if (!initialData) {
+      delete (payload as any).crewMemberId;
+    }
+
+    onSubmit(payload);
+  };
+
   return (
     <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
        <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Crew Member</h3>
-
-      <label className="flex flex-col">
-        Crew Member ID
-        <input 
-          className="border p-2 rounded disabled:bg-gray-100" 
-          type="text" 
-          placeholder="Guid" 
-          value={formData.crewMemberId}
-          disabled={!!initialData}
-          onChange={(e) => setFormData({...formData, crewMemberId: e.target.value})}
-        />
-      </label>
 
       <label className="flex flex-col">
         Name
@@ -77,7 +75,7 @@ export default function CrewMemberForm({ initialData, onSubmit, onCancel }: Prop
 
       <div className="flex gap-2 mt-4">
         <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
-        <button onClick={() => onSubmit(formData)} className="bg-black text-white px-4 py-2 rounded flex-1">
+        <button onClick={handleSubmit} className="bg-black text-white px-4 py-2 rounded flex-1">
           {initialData ? "Update" : "Create"}
         </button>
       </div>

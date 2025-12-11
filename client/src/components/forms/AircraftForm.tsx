@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { Aircraft } from "../../types/Aircraft";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default function AircraftForm({ initialData, onSubmit, onCancel }: Props) {
   const [formData, setFormData] = useState<Aircraft>({
-    aircraftId: "",
+    aircraftID: "",
     aircraftType: "",
     maxCapacity: 0,
     currentLocation: "",
@@ -29,22 +29,20 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
     setFormData({ ...formData, aircraftType: type, maxCapacity: cap });
   };
 
+  const handleSubmit = () => {
+    const payload = { ...formData };
+
+    if (!initialData) {
+      delete (payload as any).aircraftID;
+    }
+
+    onSubmit(payload);
+  };
+
   return (
     <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
       <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Aircraft</h3>
       
-      <label className="flex flex-col">
-        Aircraft ID
-        <input 
-          className="border p-2 rounded disabled:bg-gray-100" 
-          type="text" 
-          placeholder="Guid"
-          value={formData.aircraftId}
-          disabled={!!initialData}
-          onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
-        />
-      </label>
-
       <label className="flex flex-col">
         Aircraft Type
         <select
@@ -76,7 +74,7 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
       <div className="flex gap-2 mt-4">
         <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
         <button 
-          onClick={() => onSubmit(formData)} 
+          onClick={handleSubmit} 
           className="bg-black text-white px-4 py-2 rounded flex-1"
         >
           {initialData ? "Update" : "Create"}
