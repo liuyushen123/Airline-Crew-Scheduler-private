@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import Searchbar from './Searchbar';
 import Bento from './Bento';
 import AircraftForm from '../forms/AircraftForm';
@@ -8,11 +9,20 @@ import { aircraftService, commercialFlightService, crewMemberService } from '../
 
 type SearchType = 'crew' | 'flight' | 'aircraft';
 
-export default function Portal() {
+interface Props {
+  triggerSidebarRefresh: Dispatch<SetStateAction<number>>;
+}
+
+export default function Portal({ triggerSidebarRefresh }: Props) {
   const [searchTerm, setSearchTerm] = useState<SearchType>('crew');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const refreshState = () => {
+    setRefreshTrigger(prev => prev + 1);
+    triggerSidebarRefresh(prev => prev + 1);
+  }
 
   const handleOpenCreate = () => {
     setEditingItem(null);
@@ -53,7 +63,7 @@ export default function Portal() {
         });
         break;
     }
-    setRefreshTrigger(prev => prev + 1);
+    refreshState();
   }
 
 const handleFormSubmit = async (data: any) => {
@@ -83,7 +93,7 @@ const handleFormSubmit = async (data: any) => {
       }
 
       handleCloseModal();
-      setRefreshTrigger(prev => prev + 1);
+      refreshState();
     } catch (error) {
       console.error("Error submitting form", error);
     }

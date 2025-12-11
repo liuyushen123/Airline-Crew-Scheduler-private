@@ -31,7 +31,7 @@ export default function Bento({ searchTerm, refreshTrigger, onEdit, onDelete }: 
     },
   };
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       setData([]); 
       setLoading(true);
