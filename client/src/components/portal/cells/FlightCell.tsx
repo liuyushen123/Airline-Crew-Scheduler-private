@@ -31,7 +31,7 @@ export default function FlightCell({ data, onUpdate, onDelete }: Props) {
              Edit
            </button>
            <button 
-             onClick={() => onUpdate(data)}
+             onClick={() => onDelete(data.flightGuid)}
              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded text-xs font-semibold transition"
            >
              Delete

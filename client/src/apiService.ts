@@ -16,7 +16,7 @@ export const aircraftService = {
   getAircrafts: () => api.get('/aircraft'),
   getAircraftById: (id: string) => api.get(`/aircraft/${id}`),
   updateAircraft: (id: string, data: Aircraft) => api.put(`/aircraft/${id}`, data),
-  createAircraft: (data: Aircraft) => api.post('/aircraft', data),
+  createAircraft: (data: Omit<Aircraft, 'aircraftId'>) => api.post('/aircraft', data),
   deleteAircraft: (id: string) => api.delete(`/aircraft/${id}`),
 };
 
@@ -24,7 +24,7 @@ export const commercialFlightService = {
   getCommercialFlights: () => api.get('/commercialflight'),
   getCommercialFlightById: (id: string) => api.get(`/commercialflights/${id}`),
   updateCommercialFlight: (id: string, data: CommercialFlight) => api.put(`/commercialflights/${id}`, data),
-  createCommercialFlight: (data: CommercialFlight) => api.post('/commercialflights', data),
+  createCommercialFlight: (data: Omit<CommercialFlight, 'flightGuid'>) => api.post('/commercialflights', data),
   deleteCommercialFlight: (id: string) => api.delete(`/commercialflights/${id}`),
 };
 
@@ -32,7 +32,7 @@ export const crewMemberService = {
   getCrewMembers: () => api.get('/crewmembers'),
   getCrewMemberById: (id: string) => api.get(`/crewmembers/${id}`),
   updateCrewMember: (id: string, data: CrewMember) => api.put(`/crewmembers/${id}`, data),
-  createCrewMember: (data: CrewMember) => api.post('/crewmembers', data),
+  createCrewMember: (data: Omit<CrewMember, 'crewMemberId'>) => api.post('/crewmembers', data),
   deleteCrewMember: (id: string) => api.delete(`/crewmembers/${id}`),
 };
 
@@ -40,7 +40,6 @@ export const flightCrewService = {
   getFlightCrews: () => api.get('/flightcrews'),
   getFlightCrewById: (id: string) => api.get(`/flightcrews/${id}`),
   updateFlightCrew: (id: string, data: FlightCrew) => api.put(`/flightcrews/${id}`, data),
-  createFlightCrew: (data: FlightCrew) => api.post('/flightcrews', data),
   deleteFlightCrew: (id: string) => api.delete(`/flightcrews/${id}`),
 };
 

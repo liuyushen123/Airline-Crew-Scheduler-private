@@ -5,7 +5,6 @@ import AircraftForm from '../forms/AircraftForm';
 import CrewMemberForm from '../forms/CrewMemberForm';
 import FlightForm from '../forms/FlightForm';
 import { aircraftService, commercialFlightService, crewMemberService } from '../../apiService';
-// import { aircraftService, commercialFlightService, crewMemberService } from '../../testApiService';
 
 type SearchType = 'crew' | 'flight' | 'aircraft';
 
@@ -57,28 +56,36 @@ export default function Portal() {
     setRefreshTrigger(prev => prev + 1);
   }
 
-  const handleFormSubmit = async (data: any) => {
+const handleFormSubmit = async (data: any) => {
     try {
       const isUpdate = !!editingItem;
 
       if (searchTerm === 'aircraft') {
-        if (isUpdate) await aircraftService.updateAircraft(data.aircraftId, data);
-        else await aircraftService.createAircraft(data);
+        if (isUpdate) {
+            await aircraftService.updateAircraft(editingItem.aircraftIF, data);
+        } else {
+            await aircraftService.createAircraft(data);
+        }
       } 
       else if (searchTerm === 'crew') {
-        if (isUpdate) await crewMemberService.updateCrewMember(data.crewMemberId, data);
-        else await crewMemberService.createCrewMember(data);
+        if (isUpdate) {
+            await crewMemberService.updateCrewMember(editingItem.crewMemberId, data);
+        } else {
+            await crewMemberService.createCrewMember(data);
+        }
       } 
       else if (searchTerm === 'flight') {
-        if (isUpdate) await commercialFlightService.updateCommercialFlight(data.flightGuid, data);
-        else await commercialFlightService.createCommercialFlight(data);
+        if (isUpdate) {
+            await commercialFlightService.updateCommercialFlight(editingItem.flightGuid, data);
+        } else {
+            await commercialFlightService.createCommercialFlight(data);
+        }
       }
 
       handleCloseModal();
       setRefreshTrigger(prev => prev + 1);
     } catch (error) {
-      console.error("Failed to submit form", error);
-      alert("Error submitting data. Check console.");
+      console.error("Error submitting form", error);
     }
   };
 
