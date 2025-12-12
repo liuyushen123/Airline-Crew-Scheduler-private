@@ -54,12 +54,12 @@ export default function Bento({ searchTerm, refreshTrigger, onEdit, onDelete }: 
   const ActiveComponent = config[searchTerm].component;
 
   return (
-    <div className="h-full w-full overflow-y-auto p-4 bg-gray-50">
+    <div className="h-full w-full overflow-y-auto p-4 bg-[#020617]">
       {loading ? (
-        <div className="flex justify-center p-10 text-gray-500">Loading {searchTerm}...</div>
+        <div className="flex justify-center p-10 text-gray-400">Loading {searchTerm}...</div>
       ) : (
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-bold mb-2 capitalize text-gray-800">
+          <h2 className="text-2xl font-semibold mb-2 capitalize text-red-400">
             {searchTerm} Data
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

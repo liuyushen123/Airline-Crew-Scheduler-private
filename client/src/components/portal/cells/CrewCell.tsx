@@ -10,13 +10,13 @@ export default function CrewCell({ data, onUpdate, onDelete }: Props) {
   const { name, role, location, crewMemberId, jobHistory } = data;
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm flex flex-col gap-3 hover:bg-gray-50 transition-colors">
-      <div className="flex justify-between items-start">
+    <div className="border border-gray-200/80 rounded-xl p-4 bg-white/95 shadow-md flex flex-col gap-3 hover:shadow-lg hover:-translate-y-[1px] hover:bg-white transition-all duration-150">
+      <div className="flex justify-between items-start gap-2">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">{name}</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
           <p className="text-xs text-gray-400 font-mono">ID: {crewMemberId}</p>
         </div>
-        <span className='px-2 py-1 rounded text-xs font-semibold border bg-purple-50 text-purple-700 border-purple-200'>
+        <span className="px-2 py-1 rounded-full text-xs font-semibold border bg-purple-50 text-purple-700 border-purple-200">
           {role}
         </span>
       </div>
@@ -27,7 +27,6 @@ export default function CrewCell({ data, onUpdate, onDelete }: Props) {
       </div>
 
       <div className="mt-2 pt-3 border-t border-gray-100 flex justify-between items-center">
-
         <button 
           onClick={() => onUpdate(data)}
           className="text-xs text-blue-600 hover:text-blue-800 hover:underline font-semibold"
@@ -36,7 +35,7 @@ export default function CrewCell({ data, onUpdate, onDelete }: Props) {
         </button>
         <button 
           onClick={() => onDelete(data.crewMemberId)}
-          className="bg-gray-100 hover:bg-red-300 text-gray-700 px-3 py-1 rounded text-xs font-semibold transition"
+          className="bg-gray-100 hover:bg-red-300 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold transition"
         >
           Delete
         </button>

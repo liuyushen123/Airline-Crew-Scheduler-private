@@ -8,7 +8,7 @@ function App() {
   const [refreshTrigger, triggerSidebarRefresh] = useState<number>(0);
 
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 font-sans bg-slate-100">
+    <div className="w-screen h-screen flex flex-col flex-1 font-sans bg-slate-900">
       
       <Header />
 
