@@ -94,10 +94,10 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
   };
 
   return (
-    <main className="h-full w-3/4 flex flex-col relative bg-bg-secondary px-6 py-4">
+    <main className="h-full w-3/4 flex flex-col relative bg-bg-secondary pr-4">
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onOpenCreate={handleOpenCreate} />
 
-      <div className="flex-1 overflow-hidden mt-6">
+      <div className="flex-1 overflow-hidden mt-3">
         <Bento
           searchTerm={searchTerm}
           refreshTrigger={refreshTrigger}
@@ -107,7 +107,7 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
       </div>
 
       {isModalOpen && (
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-xs">
           {renderActiveForm()}
         </div>
       )}

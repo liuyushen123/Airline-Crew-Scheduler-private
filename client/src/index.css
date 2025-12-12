@@ -1,3 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #050816;
+  --color-bg-secondary: #0f172a;
+  --color-bg-faded: oklch(44.2% 0.017 285.786);
+  --color-fg-primary: #f4f4f4;
+  --color-fg-secondary: #d4d4d4;
+  --color-fg-faded: oklch(70.5% 0.015 286.067);
+  --color-accent-primary: #c3152f;
+  --color-accent-secondary: #98012e;
+  --color-accent-faded: color-mix(in oklab, var(--color-red-500) 40%, transparent);
+}

@@ -30,53 +30,68 @@ export default function CrewMemberForm({ initialData, onSubmit, onCancel }: Prop
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
-       <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Crew Member</h3>
+    <div className="flex flex-col gap-6 p-6 bg-bg-primary border border-accent-faded rounded-md shadow-lg w-full max-w-md relative">
+       
+       <div className="border-b border-bg-faded pb-4 mb-2">
+         <h3 className="font-semibold text-2xl tracking-wide text-fg-primary">
+           {initialData ? "Update" : "Create"} Crew Member
+         </h3>
+       </div>
 
-      <label className="flex flex-col">
-        Name
-        <input 
-          className="border p-2 rounded" 
-          type="text" 
-          placeholder="Full Name" 
-          value={formData.name}
-          onChange={(e) => setFormData({...formData, name: e.target.value})}
-        />
-      </label>
+      <div className="flex flex-col gap-5">
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Full Name</span>
+          <input 
+            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-primary placeholder-fg-faded focus:outline-none focus:border-accent-primary transition-colors" 
+            type="text" 
+            placeholder="e.g. Nolan Stewart" 
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+          />
+        </label>
 
-      <label className="flex flex-col">
-        Role
-        <select
-          className="border p-2 rounded"
-          value={formData.role}
-          onChange={(e) => setFormData({...formData, role: e.target.value})}
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Role</span>
+          <select
+            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+            value={formData.role}
+            onChange={(e) => setFormData({...formData, role: e.target.value})}
+          >
+            <option value="" disabled className="text-fg-faded">Select Role</option>
+            <option value="Captain">Captain</option>
+            <option value="First Officer">First Officer</option>
+            <option value="Flight Attendant">Flight Attendant</option>
+          </select>
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Base Location</span>
+          <select 
+            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+            value={formData.location}
+            onChange={(e) => setFormData({...formData, location: e.target.value})}
+          >
+            <option value="" disabled className="text-bg-faded">Select Airport</option>
+            <option value="Lincoln">Lincoln, Nebraska</option>
+            <option value="Iowa City">Iowa City, Iowa</option>
+            <option value="Evanston">Evanston, Illinois</option>
+            <option value="West Lafayette">West Lafayette, Indiana</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="flex gap-3 mt-4 pt-4 border-t border-bg-faded">
+        <button 
+          onClick={onCancel} 
+          className="flex-1 px-4 py-2 rounded-sm border border-bg-faded text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary transition-colors font-medium"
         >
-          <option value="" disabled>Select Role</option>
-          <option value="Captain">Captain</option>
-          <option value="First Officer">First Officer</option>
-          <option value="Flight Attendant">Flight Attendant</option>
-        </select>
-      </label>
-
-      <label className="flex flex-col">
-        Location
-        <select 
-          className="border p-2 rounded"
-          value={formData.location}
-          onChange={(e) => setFormData({...formData, location: e.target.value})}
+          Cancel
+        </button>
+        <button 
+          onClick={handleSubmit} 
+          className="flex-1 px-4 py-2 rounded-sm bg-accent-primary text-fg-primary hover:bg-accent-secondary hover:text-fg-secondary transition-colors font-medium shadow-sm"
         >
-          <option value="" disabled>Select Airport</option>
-          <option value="Lincoln">Lincoln, Nebraska</option>
-          <option value="Iowa City">Iowa City, Iowa</option>
-          <option value="Evanston">Evanston, Illinois</option>
-          <option value="West Lafayette">West Lafayette, Indiana</option>
-        </select>
-      </label>
-
-      <div className="flex gap-2 mt-4">
-        <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
-        <button onClick={handleSubmit} className="bg-black text-white px-4 py-2 rounded flex-1">
-          {initialData ? "Update" : "Create"}
+          {initialData ? "Save Changes" : "Create Member"}
         </button>
       </div>
     </div>

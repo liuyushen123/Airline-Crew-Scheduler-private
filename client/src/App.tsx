@@ -12,7 +12,7 @@ function App() {
       
       <Header />
 
-      <div className="flex flex-row flex-1 h-[80%]">
+      <div className="flex flex-row flex-1 h-[77.5%] px-2">
         <Portal triggerSidebarRefresh={triggerSidebarRefresh}/>
         <Sidebar refreshTrigger={refreshTrigger}/>
       </div>

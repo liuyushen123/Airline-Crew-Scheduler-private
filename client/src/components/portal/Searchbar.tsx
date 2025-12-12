@@ -6,18 +6,17 @@ interface Props {
 
 export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className="w-full bg-bg-primary rounded-xl shadow-sm border border-red-500/25 flex flex-row items-center justify-between px-4 md:px-6 py-3 text-gray-100">
+    <div className="w-full bg-bg-primary rounded-md shadow-xs border border-accent-faded flex flex-row items-center justify-between px-4 md:px-6 py-3">
       
-      <div className="flex flex-col">
-        <label className="text-xs font-semibold text-gray-400 tracking-wide">
-          Filter By
+      <div className="flex flex-row items-center gap-3">
+        <label className="text-xl font-semibold text-fg-primary tracking-wide">
+          Search For:
         </label>
         
         <select
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value as any)}
-          className="mt-1 p-2 rounded-lg bg-[#020617] border border-gray-600 text-gray-100 text-sm
-                     focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-lg"
         >
           <option value="crew">Crew Members</option>
           <option value="flight">Flights</option>
@@ -27,9 +26,9 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-accent-primary hover:bg-accent-secondary text-white hover:text-zinc-200 transition rounded-full py-2 px-6 text-sm font-semibold shadow-sm"
+        className="bg-accent-primary hover:bg-accent-secondary text-fg-primary hover:text-fg-secondary rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
       >
-        + Create New
+        Create
       </button>
     </div>
   );
