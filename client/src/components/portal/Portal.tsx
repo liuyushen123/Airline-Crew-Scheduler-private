@@ -94,7 +94,7 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
   };
 
   return (
-    <main className="h-full w-full flex flex-col relative bg-[#020617] px-6 py-4">
+    <main className="h-full w-3/4 flex flex-col relative bg-bg-secondary px-6 py-4">
       <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onOpenCreate={handleOpenCreate} />
 
       <div className="flex-1 overflow-hidden mt-6">

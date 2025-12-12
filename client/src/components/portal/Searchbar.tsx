@@ -6,7 +6,7 @@ interface Props {
 
 export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className="w-full bg-[#050816] rounded-xl shadow-sm border border-red-500/25 flex flex-row items-center justify-between px-4 md:px-6 py-3 text-gray-100">
+    <div className="w-full bg-bg-primary rounded-xl shadow-sm border border-red-500/25 flex flex-row items-center justify-between px-4 md:px-6 py-3 text-gray-100">
       
       <div className="flex flex-col">
         <label className="text-xs font-semibold text-gray-400 tracking-wide">
@@ -27,7 +27,7 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-red-600 hover:bg-red-700 text-white transition rounded-full py-2 px-6 text-sm font-semibold shadow-sm"
+        className="bg-accent-primary hover:bg-accent-secondary text-white hover:text-zinc-200 transition rounded-full py-2 px-6 text-sm font-semibold shadow-sm"
       >
         + Create New
       </button>

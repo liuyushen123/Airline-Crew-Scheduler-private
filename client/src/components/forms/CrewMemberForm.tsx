@@ -51,7 +51,7 @@ export default function CrewMemberForm({ initialData, onSubmit, onCancel }: Prop
           value={formData.role}
           onChange={(e) => setFormData({...formData, role: e.target.value})}
         >
-          <option value="">Select Role</option>
+          <option value="" disabled>Select Role</option>
           <option value="Captain">Captain</option>
           <option value="First Officer">First Officer</option>
           <option value="Flight Attendant">Flight Attendant</option>
@@ -65,7 +65,7 @@ export default function CrewMemberForm({ initialData, onSubmit, onCancel }: Prop
           value={formData.location}
           onChange={(e) => setFormData({...formData, location: e.target.value})}
         >
-          <option value="">Select Airport</option>
+          <option value="" disabled>Select Airport</option>
           <option value="Lincoln">Lincoln, Nebraska</option>
           <option value="Iowa City">Iowa City, Iowa</option>
           <option value="Evanston">Evanston, Illinois</option>

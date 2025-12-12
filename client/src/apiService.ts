@@ -5,7 +5,7 @@ import type { CrewMember } from './types/CrewMember';
 import type { FlightCrew } from './types/FlightCrew';
 
 const api = axios.create({
-    baseURL: 'https://localhost:7241/api/',
+    baseURL: '/api',
     headers: {
         'Content-Type': 'application/json',
     },

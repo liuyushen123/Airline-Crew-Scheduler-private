@@ -1,7 +1,8 @@
 import type { CommercialFlight } from "../../../types/CommercialFlight";
+import type { FlightCrew } from "../../../types/FlightCrew";
 
 const formatTime = (dateString: string | null) => {
-  if (!dateString) return <span className="text-gray-400 italic">--:--</span>;
+  if (!dateString) return <span className="text-gray-500 italic">--:--</span>;
   return new Date(dateString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
@@ -13,74 +14,54 @@ interface Props {
 
 export default function FlightCell({ data, onUpdate, onDelete }: Props) {
   return (
-    <div className="border border-gray-200/80 rounded-xl p-4 bg-white/95 shadow-md flex flex-col gap-4 hover:shadow-lg hover:-translate-y-[1px] hover:bg-white transition-all duration-150">
+    <div className="border border-gray-200/80 rounded-md p-4 bg-slate-800 flex flex-col gap-2 transition-all duration-150 shadow-sm hover:shadow-md">
       <div className="flex justify-between items-start gap-2">
         <div>
-          <h2 className="text-lg md:text-xl font-semibold text-blue-900 flex items-center gap-2">
-            {data.origin} <span className="text-gray-400 text-sm">✈</span> {data.destination}
-          </h2>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">
-            Flight {data.flightGuid}
-          </p>
+          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+            {data.origin} <span className="text-gray-400 text-sm">➝</span> {data.destination}
+          </h3>
+          <p className="text-xs text-gray-400 font-mono">Flight: {data.flightGuid}</p>
         </div>
 
-        <div className="flex flex-col gap-1 items-end">
+        <div className="flex flex-col gap-1">
           <button
             onClick={() => onUpdate(data)}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold transition"
+            className="bg-gray-400 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold transition"
           >
             Edit
           </button>
 
           <button
             onClick={() => onDelete(data.flightGuid)}
-            className="bg-gray-100 hover:bg-red-300 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold transition"
+            className="bg-gray-400 hover:bg-red-300 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold transition"
           >
             Delete
           </button>
-
-          <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-mono">
-            {data.aircraftId}
-          </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 bg-gray-50 p-3 rounded-md text-sm border border-gray-100">
-        <div>
-          <h3 className="font-semibold text-gray-600 mb-2 border-b border-gray-200 pb-1">
-            Departure
-          </h3>
-          <div className="grid grid-cols-[50px_1fr] gap-y-1">
-            <span className="text-gray-400 text-xs uppercase">Sched</span>
-            <span>{formatTime(data.schedTakeoff)}</span>
-
-            <span className="text-gray-400 text-xs uppercase">Est</span>
-            <span>{formatTime(data.estTakeoff)}</span>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="font-semibold text-gray-600 mb-2 border-b border-gray-200 pb-1">
-            Arrival
-          </h3>
-          <div className="grid grid-cols-[50px_1fr] gap-y-1">
-            <span className="text-gray-400 text-xs uppercase">Sched</span>
-            <span>{formatTime(data.schedTouchdown)}</span>
-
-            <span className="text-gray-400 text-xs uppercase">Est</span>
-            <span>{formatTime(data.estTouchdown)}</span>
-          </div>
-        </div>
+      <div className="text-sm text-gray-300 mt-2 space-y-1">
+        <p>
+          <span className="font-semibold text-gray-200">Aircraft:</span> {data.aircraftId}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-200">Departure:</span> {formatTime(data.schedTakeoff)}
+          {data.estTakeoff && <span className="text-xs text-gray-400 ml-2">(Est: {formatTime(data.estTakeoff)})</span>}
+        </p>
+        <p>
+          <span className="font-semibold text-gray-200">Arrival:</span> {formatTime(data.schedTouchdown)}
+          {data.estTouchdown && <span className="text-xs text-gray-400 ml-2">(Est: {formatTime(data.estTouchdown)})</span>}
+        </p>
       </div>
 
-      {data.crewAssignments?.length > 0 && (
-        <div className="mt-1">
-          <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">Crew Manifest</h4>
-          <ul className="grid grid-cols-2 gap-2">
-            {data.crewAssignments.map((assignment, index) => (
-              <li key={index} className="text-xs bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-700 truncate">
-                {assignment.crewMemberId}
-                <span className="text-gray-400 ml-1">({assignment.roleOnFlight})</span>
+      {data.crewAssignments && data.crewAssignments.length > 0 && (
+        <div className="mt-2 pt-2 border-t border-gray-500/30">
+          <p className="text-xs font-bold text-gray-400 uppercase mb-1">Crew Manifest</p>
+          <ul className="list-disc list-inside text-sm text-gray-400">
+            {data.crewAssignments.map((crew: FlightCrew, index: number) => (
+              <li key={`${crew.crewMemberId}-${index}`}>
+                <span className="text-gray-300">{crew.crewMemberId}</span>
+                <span className="text-gray-500 text-xs ml-1">({crew.roleOnFlight})</span>
               </li>
             ))}
           </ul>

@@ -50,7 +50,7 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
           value={formData.aircraftType}
           onChange={(e) => handleTypeChange(e.target.value)}
         >
-          <option value="">Select Type</option>
+          <option value="" disabled>Select Type</option>
           <option value="GBR-10">GBR-10 (45 seats)</option>
           <option value="NU-150">NU-150 (75 seats)</option>
         </select>
@@ -63,7 +63,7 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
           value={formData.currentLocation}
           onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
         >
-          <option value="">Select Airport</option>
+          <option value="" disabled>Select Airport</option>
           <option value="Lincoln">Lincoln, Nebraska</option>
           <option value="Iowa City">Iowa City, Iowa</option>
           <option value="Evanston">Evanston, Illinois</option>

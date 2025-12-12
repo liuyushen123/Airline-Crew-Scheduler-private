@@ -1,8 +1,8 @@
-import { testApi } from '../apiService';
+// import { testApi } from '../apiService';
 
 export default function Header() {
   return (
-    <header className="h-[10%] md:px-20 flex flex-row justify-between items-center bg-black text-white border-b border-red-500/50 shadow-[0_2px_0_rgba(248,113,113,0.35)]">
+    <header className="h-[10%] md:px-20 flex flex-row justify-between items-center bg-bg-secondary text-white border-b border-slate-700 shadow-md">
       <img src="/Cornhusker_logo.png" alt="Logo" className="h-full" />
       
       <h1 className="text-4xl pl-4 self-center font-light tracking-wide">

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import type { CommercialFlight } from "../../types/CommercialFlight";
+import type { Aircraft } from "../../types/Aircraft";
+import { aircraftService } from "../../apiService";
 
 interface Props {
   initialData?: CommercialFlight | null;
@@ -10,7 +12,7 @@ interface Props {
 export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
   const [formData, setFormData] = useState<CommercialFlight>({
     flightGuid: "",
-    aircraftId: "", // we could auto-assign this in backend or have select for it
+    aircraftId: "",
     origin: "",
     destination: "",
     schedTakeoff: "",
@@ -20,7 +22,19 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
     estTouchdown: null,
     actTouchdown: null,
   });
+  const [aircraftData, setAircraftData] = useState<Aircraft[]>([]);
 
+  // effect to load aircrafts
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await aircraftService.getAircrafts();
+      setAircraftData(data);
+    }
+
+    load();
+  }, []);
+
+  // effect to set given data for update
   useEffect(() => {
     if (initialData) setFormData(initialData);
   }, [initialData]);
@@ -65,11 +79,28 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
           value={formData.destination}
           onChange={(e) => setFormData({...formData, destination: e.target.value})}
         >
-          <option value="">Select Airport</option>
+          <option value="" disabled>Select Airport</option>
           <option value="Lincoln">Lincoln, Nebraska</option>
           <option value="Iowa City">Iowa City, Iowa</option>
           <option value="Evanston">Evanston, Illinois</option>
           <option value="West Lafayette">West Lafayette, Indiana</option>
+        </select>
+      </label>
+
+      <label className="flex flex-col">
+        Aircraft
+        <select 
+          className="border p-2 rounded"
+          value={formData.aircraftId}
+          onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
+        >
+          <option value="" disabled>Select Aircraft</option>
+
+          {aircraftData
+          .filter((aircraft) => aircraft.currentLocation === formData.origin)
+          .map(({ aircraftID, aircraftType }) => {
+            return <option key={aircraftID} value={aircraftID}><span className='font-medium' >{aircraftType}&gt;</span> {aircraftID}</option>
+          })}
         </select>
       </label>
       
