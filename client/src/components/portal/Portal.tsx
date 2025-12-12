@@ -22,7 +22,7 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
   const refreshState = () => {
     setRefreshTrigger(prev => prev + 1);
     triggerSidebarRefresh(prev => prev + 1);
-  }
+  };
 
   const handleOpenCreate = () => {
     setEditingItem(null);
@@ -40,92 +40,66 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
   };
 
   const handleDelete = async (id: string) => {
-    switch (searchTerm) {
-      case 'crew':
-        await crewMemberService.deleteCrewMember(id).then(() => {
-          console.log('Deleted crew member', id);
-        }).catch((err: unknown) => {
-          console.error('Error deleting crew member', err);
-        });
-        break;
-      case 'flight':
-        await commercialFlightService.deleteCommercialFlight(id).then(() => {
-          console.log('Deleted flight', id);
-        }).catch((err: unknown) => {
-          console.error('Error deleting flight', err);
-        });
-        break;
-      case 'aircraft':
-        await aircraftService.deleteAircraft(id).then(() => {
-          console.log('Deleted aircraft', id);
-        }).catch((err: unknown) => {
-          console.error('Error deleting aircraft', err);
-        });
-        break;
+    try {
+      if (searchTerm === 'crew') {
+        await crewMemberService.deleteCrewMember(id);
+      } else if (searchTerm === 'flight') {
+        await commercialFlightService.deleteCommercialFlight(id);
+      } else {
+        await aircraftService.deleteAircraft(id);
+      }
+      refreshState();
+    } catch (err) {
+      console.error("Error deleting item", err);
     }
-    refreshState();
-  }
+  };
 
-const handleFormSubmit = async (data: any) => {
+  const handleFormSubmit = async (data: any) => {
     try {
       const isUpdate = !!editingItem;
 
       if (searchTerm === 'aircraft') {
-        if (isUpdate) {
-            await aircraftService.updateAircraft(editingItem.aircraftID, data);
-        } else {
-            await aircraftService.createAircraft(data);
-        }
-      } 
-      else if (searchTerm === 'crew') {
-        if (isUpdate) {
-            await crewMemberService.updateCrewMember(editingItem.crewMemberId, data);
-        } else {
-            await crewMemberService.createCrewMember(data);
-        }
-      } 
-      else if (searchTerm === 'flight') {
-        if (isUpdate) {
-            await commercialFlightService.updateCommercialFlight(editingItem.flightGuid, data);
-        } else {
-            await commercialFlightService.createCommercialFlight(data);
-        }
+        const id = isUpdate ? editingItem.aircraftId : undefined;
+        isUpdate
+          ? await aircraftService.updateAircraft(id, data)
+          : await aircraftService.createAircraft(data);
+
+      } else if (searchTerm === 'crew') {
+        const id = isUpdate ? editingItem.crewMemberId : undefined;
+        isUpdate
+          ? await crewMemberService.updateCrewMember(id, data)
+          : await crewMemberService.createCrewMember(data);
+
+      } else {
+        const id = isUpdate ? editingItem.flightGuid : undefined;
+        isUpdate
+          ? await commercialFlightService.updateCommercialFlight(id, data)
+          : await commercialFlightService.createCommercialFlight(data);
       }
 
       handleCloseModal();
       refreshState();
-    } catch (error) {
-      console.error("Error submitting form", error);
+    } catch (e) {
+      console.error("Error submitting form", e);
     }
   };
 
   const renderActiveForm = () => {
-    const commonProps = {
-      initialData: editingItem,
-      onSubmit: handleFormSubmit,
-      onCancel: handleCloseModal
-    };
+    const props = { initialData: editingItem, onSubmit: handleFormSubmit, onCancel: handleCloseModal };
 
-    switch (searchTerm) {
-      case 'aircraft': return <AircraftForm {...commonProps} />;
-      case 'crew': return <CrewMemberForm {...commonProps} />;
-      case 'flight': return <FlightForm {...commonProps} />;
-      default: return null;
-    }
+    if (searchTerm === 'aircraft') return <AircraftForm {...props} />;
+    if (searchTerm === 'crew') return <CrewMemberForm {...props} />;
+    if (searchTerm === 'flight') return <FlightForm {...props} />;
+    return null;
   };
 
   return (
-    <main className='h-full w-3/4 flex flex-col relative'>
-      
-      <Searchbar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onOpenCreate={handleOpenCreate}
-      />
+    <main className="h-full w-full flex flex-col relative bg-[#020617] px-6 py-4">
+      <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onOpenCreate={handleOpenCreate} />
 
-      <div className='flex-1 overflow-hidden bg-slate-50'>
-        <Bento 
-          searchTerm={searchTerm} 
+      <div className="flex-1 overflow-hidden mt-6">
+        <Bento
+          searchTerm={searchTerm}
           refreshTrigger={refreshTrigger}
           onEdit={handleOpenEdit}
           onDelete={handleDelete}
@@ -137,7 +111,6 @@ const handleFormSubmit = async (data: any) => {
           {renderActiveForm()}
         </div>
       )}
-
     </main>
   );
 }
