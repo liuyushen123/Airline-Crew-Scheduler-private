@@ -40,44 +40,56 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 text-sm bg-white rounded shadow-md w-full max-w-md">
-      <h3 className="font-bold text-lg">{initialData ? "Update" : "Create"} Aircraft</h3>
-      
-      <label className="flex flex-col">
-        Aircraft Type
-        <select
-          className="border p-2 rounded"
-          value={formData.aircraftType}
-          onChange={(e) => handleTypeChange(e.target.value)}
-        >
-          <option value="">Select Type</option>
-          <option value="GBR-10">GBR-10 (45 seats)</option>
-          <option value="NU-150">NU-150 (75 seats)</option>
-        </select>
-      </label>
+    <div className="flex flex-col gap-6 p-6 bg-bg-primary border border-accent-faded rounded-md shadow-lg w-full max-w-md relative">
+  
+      <div className="border-b border-bg-faded pb-4 mb-2">
+        <h3 className="font-semibold text-2xl tracking-wider text-fg-primary">
+          {initialData ? "Update" : "Create"} Aircraft
+        </h3>
+      </div>
 
-      <label className="flex flex-col">
-        Current Location
-        <select 
-          className="border p-2 rounded"
-          value={formData.currentLocation}
-          onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
-        >
-          <option value="">Select Airport</option>
-          <option value="Lincoln">Lincoln, Nebraska</option>
-          <option value="Iowa City">Iowa City, Iowa</option>
-          <option value="Evanston">Evanston, Illinois</option>
-          <option value="West Lafayette">West Lafayette, Indiana</option>
-        </select>
-      </label>
+      <div className="flex flex-col gap-5">
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Aircraft Type</span>
+          <select
+            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+            value={formData.aircraftType}
+            onChange={(e) => handleTypeChange(e.target.value)}
+          >
+            <option value="" disabled className="text-fg-faded">Select Type</option>
+            <option value="GBR-10">GBR-10 (45 seats)</option>
+            <option value="NU-150">NU-150 (75 seats)</option>
+          </select>
+        </label>
 
-      <div className="flex gap-2 mt-4">
-        <button onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded flex-1">Cancel</button>
+        <label className="flex flex-col gap-2">
+           <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Current Location</span>
+          <select 
+            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+            value={formData.currentLocation}
+            onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
+          >
+            <option value="" disabled className="text-bg-faded">Select Airport</option>
+            <option value="Lincoln">Lincoln, Nebraska</option>
+            <option value="Iowa City">Iowa City, Iowa</option>
+            <option value="Evanston">Evanston, Illinois</option>
+            <option value="West Lafayette">West Lafayette, Indiana</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="flex gap-3 mt-4 pt-4 border-t border-bg-faded">
+        <button 
+          onClick={onCancel} 
+          className="flex-1 px-4 py-2 rounded-sm border border-bg-faded text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary transition-colors font-medium"
+        >
+          Cancel
+        </button>
         <button 
           onClick={handleSubmit} 
-          className="bg-black text-white px-4 py-2 rounded flex-1"
+          className="flex-1 px-4 py-2 rounded-sm bg-accent-primary text-fg-primary hover:bg-accent-secondary hover:text-fg-secondary transition-colors font-medium shadow-sm"
         >
-          {initialData ? "Update" : "Create"}
+          {initialData ? "Save Changes" : "Create Aircraft"}
         </button>
       </div>
     </div>

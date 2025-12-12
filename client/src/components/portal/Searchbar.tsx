@@ -6,15 +6,17 @@ interface Props {
 
 export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className="w-full h-16 bg-[#1A1A1A] flex flex-row items-center justify-between md:px-20 px-4 text-gray-200 shadow">
+    <div className="w-full bg-bg-primary rounded-md shadow-xs border border-accent-faded flex flex-row items-center justify-between px-4 md:px-6 py-3">
       
-      <div className="flex flex-col">
-        <label className="text-xs font-bold text-gray-400">Filter By</label>
+      <div className="flex flex-row items-center gap-3">
+        <label className="text-xl font-semibold text-fg-primary tracking-wide">
+          Search For:
+        </label>
         
         <select
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value as any)}
-          className="p-2 rounded bg-[#2A2A2A] border border-gray-600 text-gray-200"
+          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-lg"
         >
           <option value="crew">Crew Members</option>
           <option value="flight">Flights</option>
@@ -24,9 +26,9 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-blue-600 hover:bg-blue-700 text-white transition rounded-xl py-2 px-6 font-bold"
+        className="bg-accent-primary hover:bg-accent-secondary text-fg-primary hover:text-fg-secondary rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
       >
-        + Create New
+        Create
       </button>
     </div>
   );

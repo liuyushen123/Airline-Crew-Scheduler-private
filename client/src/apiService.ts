@@ -5,7 +5,7 @@ import type { CrewMember } from './types/CrewMember';
 import type { FlightCrew } from './types/FlightCrew';
 
 const api = axios.create({
-    baseURL: 'https://localhost:7241/api/',
+    baseURL: '/api',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -21,7 +21,7 @@ export const aircraftService = {
 };
 
 export const commercialFlightService = {
-  getCommercialFlights: () => api.get('/commercialflight'),
+  getCommercialFlights: () => api.get('/commercialflights'),
   getCommercialFlightById: (id: string) => api.get(`/commercialflights/${id}`),
   updateCommercialFlight: (id: string, data: CommercialFlight) => api.put(`/commercialflights/${id}`, data),
   createCommercialFlight: (data: Omit<CommercialFlight, 'flightGuid'>) => api.post('/commercialflights', data),
