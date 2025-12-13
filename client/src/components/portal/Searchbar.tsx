@@ -1,22 +1,21 @@
 interface Props {
-  searchTerm: 'crew' | 'flight' | 'aircraft';
-  setSearchTerm: (term: 'crew' | 'flight' | 'aircraft') => void;
+  searchTerm: "crew" | "flight" | "aircraft";
+  setSearchTerm: (term: "crew" | "flight" | "aircraft") => void;
   onOpenCreate: () => void;
 }
 
 export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className="w-full bg-bg-primary rounded-md shadow-xs border border-accent-faded flex flex-row items-center justify-between px-4 md:px-6 py-3">
-      
-      <div className="flex flex-row items-center gap-3">
-        <label className="text-xl font-semibold text-fg-primary tracking-wide">
+    <div className="w-full rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] shadow-sm px-5 py-4 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <label className="text-sm font-semibold text-[var(--color-fg-secondary)]">
           Search For:
         </label>
-        
+
         <select
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value as any)}
-          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-lg"
+          className="h-11 px-4 rounded-xl bg-white border border-[var(--color-border)] text-[var(--color-fg-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-brand-sky)]/25"
         >
           <option value="crew">Crew Members</option>
           <option value="flight">Flights</option>
@@ -26,7 +25,7 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-accent-primary hover:bg-accent-secondary text-fg-primary hover:text-fg-secondary rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
+        className="h-11 px-6 rounded-xl font-semibold text-white bg-[var(--color-accent-primary)] hover:brightness-110 transition shadow-sm"
       >
         Create
       </button>

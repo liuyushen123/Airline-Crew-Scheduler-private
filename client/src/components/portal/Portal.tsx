@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
-import Searchbar from './Searchbar';
-import Bento from './Bento';
-import AircraftForm from '../forms/AircraftForm';
-import CrewMemberForm from '../forms/CrewMemberForm';
-import FlightForm from '../forms/FlightForm';
-import { aircraftService, commercialFlightService, crewMemberService } from '../../apiService';
+import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import Searchbar from "./Searchbar";
+import Bento from "./Bento";
+import AircraftForm from "../forms/AircraftForm";
+import CrewMemberForm from "../forms/CrewMemberForm";
+import FlightForm from "../forms/FlightForm";
+import { aircraftService, commercialFlightService, crewMemberService } from "../../apiService";
 
-type SearchType = 'crew' | 'flight' | 'aircraft';
+type SearchType = "crew" | "flight" | "aircraft";
 
 interface Props {
   triggerSidebarRefresh: Dispatch<SetStateAction<number>>;
 }
 
 export default function Portal({ triggerSidebarRefresh }: Props) {
-  const [searchTerm, setSearchTerm] = useState<SearchType>('crew');
+  const [searchTerm, setSearchTerm] = useState<SearchType>("crew");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const refreshState = () => {
-    setRefreshTrigger(prev => prev + 1);
-    triggerSidebarRefresh(prev => prev + 1);
+    setRefreshTrigger((prev) => prev + 1);
+    triggerSidebarRefresh((prev) => prev + 1);
   };
 
   const handleOpenCreate = () => {
@@ -40,64 +40,88 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
   };
 
   const handleDelete = async (id: string) => {
-    try {
-      if (searchTerm === 'crew') {
-        await crewMemberService.deleteCrewMember(id);
-      } else if (searchTerm === 'flight') {
-        await commercialFlightService.deleteCommercialFlight(id);
-      } else {
-        await aircraftService.deleteAircraft(id);
-      }
-      refreshState();
-    } catch (err) {
-      console.error("Error deleting item", err);
+    switch (searchTerm) {
+      case "crew":
+        await crewMemberService
+          .deleteCrewMember(id)
+          .then(() => console.log("Deleted crew member", id))
+          .catch((err: unknown) => console.error("Error deleting crew member", err));
+        break;
+      case "flight":
+        await commercialFlightService
+          .deleteCommercialFlight(id)
+          .then(() => console.log("Deleted flight", id))
+          .catch((err: unknown) => console.error("Error deleting flight", err));
+        break;
+      case "aircraft":
+        await aircraftService
+          .deleteAircraft(id)
+          .then(() => console.log("Deleted aircraft", id))
+          .catch((err: unknown) => console.error("Error deleting aircraft", err));
+        break;
     }
+    refreshState();
   };
 
   const handleFormSubmit = async (data: any) => {
     try {
       const isUpdate = !!editingItem;
 
-      if (searchTerm === 'aircraft') {
-        const id = isUpdate ? editingItem.aircraftId : undefined;
-        isUpdate
-          ? await aircraftService.updateAircraft(id, data)
-          : await aircraftService.createAircraft(data);
-
-      } else if (searchTerm === 'crew') {
-        const id = isUpdate ? editingItem.crewMemberId : undefined;
-        isUpdate
-          ? await crewMemberService.updateCrewMember(id, data)
-          : await crewMemberService.createCrewMember(data);
-
-      } else {
-        const id = isUpdate ? editingItem.flightGuid : undefined;
-        isUpdate
-          ? await commercialFlightService.updateCommercialFlight(id, data)
-          : await commercialFlightService.createCommercialFlight(data);
+      if (searchTerm === "aircraft") {
+        if (isUpdate) {
+          await aircraftService.updateAircraft(data.aircraftId, data);
+        } else {
+          await aircraftService.createAircraft(data);
+        }
+      } else if (searchTerm === "crew") {
+        if (isUpdate) {
+          await crewMemberService.updateCrewMember(editingItem.crewMemberId, data);
+        } else {
+          await crewMemberService.createCrewMember(data);
+        }
+      } else if (searchTerm === "flight") {
+        if (isUpdate) {
+          await commercialFlightService.updateCommercialFlight(editingItem.flightGuid, data);
+        } else {
+          await commercialFlightService.createCommercialFlight(data);
+        }
       }
 
       handleCloseModal();
       refreshState();
-    } catch (e) {
-      console.error("Error submitting form", e);
+    } catch (error) {
+      console.error("Error submitting form", error);
     }
   };
 
   const renderActiveForm = () => {
-    const props = { initialData: editingItem, onSubmit: handleFormSubmit, onCancel: handleCloseModal };
+    const commonProps = {
+      initialData: editingItem,
+      onSubmit: handleFormSubmit,
+      onCancel: handleCloseModal,
+    };
 
-    if (searchTerm === 'aircraft') return <AircraftForm {...props} />;
-    if (searchTerm === 'crew') return <CrewMemberForm {...props} />;
-    if (searchTerm === 'flight') return <FlightForm {...props} />;
-    return null;
+    switch (searchTerm) {
+      case "aircraft":
+        return <AircraftForm {...commonProps} />;
+      case "crew":
+        return <CrewMemberForm {...commonProps} />;
+      case "flight":
+        return <FlightForm {...commonProps} />;
+      default:
+        return null;
+    }
   };
 
   return (
-    <main className="h-full w-3/4 flex flex-col relative bg-bg-secondary pr-4">
-      <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onOpenCreate={handleOpenCreate} />
+    <main className="flex-1 min-h-0 flex flex-col relative px-6 py-6">
+      <Searchbar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        onOpenCreate={handleOpenCreate}
+      />
 
-      <div className="flex-1 overflow-hidden mt-3">
+      <div className="flex-1 min-h-0 overflow-hidden mt-6">
         <Bento
           searchTerm={searchTerm}
           refreshTrigger={refreshTrigger}
@@ -107,8 +131,14 @@ export default function Portal({ triggerSidebarRefresh }: Props) {
       </div>
 
       {isModalOpen && (
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-xs">
-          {renderActiveForm()}
+        <div className="fixed inset-0 z-50">
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-md"
+            onClick={handleCloseModal}
+          />
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            <div className="relative">{renderActiveForm()}</div>
+          </div>
         </div>
       )}
     </main>

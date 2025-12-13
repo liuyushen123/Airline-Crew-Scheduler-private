@@ -1,20 +1,19 @@
-import { useState } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Portal from './components/portal/Portal';
-import Sidebar from './components/Sidebar';
+import { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Portal from "./components/portal/Portal";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [refreshTrigger, triggerSidebarRefresh] = useState<number>(0);
+  const [sidebarRefreshTrigger, setSidebarRefreshTrigger] = useState(0);
 
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 font-sans bg-slate-900">
-      
+    <div className="w-screen h-screen flex flex-col font-sans bg-[var(--color-bg-primary)] text-[var(--color-fg-primary)]">
       <Header />
 
-      <div className="flex flex-row flex-1 h-[77.5%] px-2">
-        <Portal triggerSidebarRefresh={triggerSidebarRefresh}/>
-        <Sidebar refreshTrigger={refreshTrigger}/>
+      <div className="flex flex-1 min-h-0">
+        <Portal triggerSidebarRefresh={setSidebarRefreshTrigger} />
+        <Sidebar refreshTrigger={sidebarRefreshTrigger} />
       </div>
 
       <Footer />

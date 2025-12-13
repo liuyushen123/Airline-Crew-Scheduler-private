@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import type { Aircraft } from "../../types/Aircraft";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default function AircraftForm({ initialData, onSubmit, onCancel }: Props) {
   const [formData, setFormData] = useState<Aircraft>({
-    aircraftID: "",
+    aircraftId: "",
     aircraftType: "",
     maxCapacity: 0,
     currentLocation: "",
@@ -25,51 +25,55 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
     let cap = 0;
     if (type === "GBR-10") cap = 45;
     if (type === "NU-150") cap = 75;
-    
     setFormData({ ...formData, aircraftType: type, maxCapacity: cap });
   };
 
-  const handleSubmit = () => {
-    const payload = { ...formData };
-
-    if (!initialData) {
-      delete (payload as any).aircraftID;
-    }
-
-    onSubmit(payload);
-  };
-
   return (
-    <div className="flex flex-col gap-6 p-6 bg-bg-primary border border-accent-faded rounded-md shadow-lg w-full max-w-md relative">
-  
-      <div className="border-b border-bg-faded pb-4 mb-2">
-        <h3 className="font-semibold text-2xl tracking-wider text-fg-primary">
-          {initialData ? "Update" : "Create"} Aircraft
-        </h3>
+    <div className="w-[560px] max-w-[92vw] rounded-2xl bg-white text-slate-900 border border-slate-200 shadow-2xl">
+      <div className="px-6 py-5 border-b border-slate-200">
+        <h3 className="text-xl font-semibold">{initialData ? "Update" : "Create"} Aircraft</h3>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="px-6 py-5 space-y-4">
         <label className="flex flex-col gap-2">
-          <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Aircraft Type</span>
+          <span className="text-xs font-bold tracking-wider text-slate-600 uppercase">
+            Aircraft ID
+          </span>
+          <input
+            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200 disabled:bg-slate-50"
+            type="text"
+            placeholder="Guid"
+            value={formData.aircraftId}
+            disabled={!!initialData}
+            onChange={(e) => setFormData({ ...formData, aircraftId: e.target.value })}
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-xs font-bold tracking-wider text-slate-600 uppercase">
+            Aircraft Type
+          </span>
           <select
-            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={formData.aircraftType}
             onChange={(e) => handleTypeChange(e.target.value)}
           >
-            <option value="" disabled className="text-fg-faded">Select Type</option>
+            <option value="">Select Type</option>
             <option value="GBR-10">GBR-10 (45 seats)</option>
             <option value="NU-150">NU-150 (75 seats)</option>
           </select>
         </label>
 
         <label className="flex flex-col gap-2">
-           <span className="text-sm font-medium text-fg-secondary uppercase tracking-wider">Current Location</span>
-          <select 
-            className="w-full p-3 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary focus:outline-none focus:border-accent-primary transition-colors"
+          <span className="text-xs font-bold tracking-wider text-slate-600 uppercase">
+            Current Location
+          </span>
+          <select
+            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={formData.currentLocation}
-            onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
           >
-            <option value="" disabled className="text-bg-faded">Select Airport</option>
+            <option value="">Select Airport</option>
             <option value="Lincoln">Lincoln, Nebraska</option>
             <option value="Iowa City">Iowa City, Iowa</option>
             <option value="Evanston">Evanston, Illinois</option>
@@ -78,18 +82,18 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
         </label>
       </div>
 
-      <div className="flex gap-3 mt-4 pt-4 border-t border-bg-faded">
-        <button 
-          onClick={onCancel} 
-          className="flex-1 px-4 py-2 rounded-sm border border-bg-faded text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary transition-colors font-medium"
+      <div className="px-6 py-5 border-t border-slate-200 flex gap-3">
+        <button
+          onClick={onCancel}
+          className="flex-1 h-10 rounded-xl font-semibold bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-200 transition"
         >
           Cancel
         </button>
-        <button 
-          onClick={handleSubmit} 
-          className="flex-1 px-4 py-2 rounded-sm bg-accent-primary text-fg-primary hover:bg-accent-secondary hover:text-fg-secondary transition-colors font-medium shadow-sm"
+        <button
+          onClick={() => onSubmit(formData)}
+          className="flex-1 h-10 rounded-xl font-semibold text-white bg-[var(--color-accent-primary)] hover:brightness-110 transition shadow-sm"
         >
-          {initialData ? "Save Changes" : "Create Aircraft"}
+          {initialData ? "Update" : "Create"}
         </button>
       </div>
     </div>

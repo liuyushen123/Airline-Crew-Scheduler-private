@@ -2,11 +2,11 @@ import { aircraftService, commercialFlightService, crewMemberService } from "../
 import { useState, useEffect } from "react";
 
 import AircraftCell from "./cells/AircraftCell";
-import CrewCell from "./cells/CrewCell"; 
+import CrewCell from "./cells/CrewCell";
 import FlightCell from "./cells/FlightCell";
 
 interface Props {
-  searchTerm: 'crew' | 'flight' | 'aircraft';
+  searchTerm: "crew" | "flight" | "aircraft";
   refreshTrigger: number;
   onEdit: (item: any) => void;
   onDelete: (id: string) => void;
@@ -19,7 +19,7 @@ export default function Bento({ searchTerm, refreshTrigger, onEdit, onDelete }: 
   const config = {
     crew: {
       fetch: crewMemberService.getCrewMembers,
-      component: CrewCell, 
+      component: CrewCell,
     },
     flight: {
       fetch: commercialFlightService.getCommercialFlights,
@@ -33,9 +33,9 @@ export default function Bento({ searchTerm, refreshTrigger, onEdit, onDelete }: 
 
   useEffect(() => {
     const fetchData = async () => {
-      setData([]); 
+      setData([]);
       setLoading(true);
-      
+
       const fetchFn = config[searchTerm].fetch;
 
       try {
@@ -54,21 +54,25 @@ export default function Bento({ searchTerm, refreshTrigger, onEdit, onDelete }: 
   const ActiveComponent = config[searchTerm].component;
 
   return (
-    <div className="h-full w-full overflow-y-auto p-4 rounded-md border border-accent-faded bg-bg-primary">
+    <div className="h-full w-full overflow-y-auto">
       {loading ? (
-        <div className="flex justify-center p-10 text-fg-faded">Loading {searchTerm}...</div>
+        <div className="flex justify-center p-10 text-[var(--color-fg-secondary)]">Loading {searchTerm}...</div>
       ) : (
         <div className="flex flex-col gap-4">
-          {/* <h2 className="text-2xl font-semibold mb-2 capitalize text-red-400">
-            {searchTerm} Data
-          </h2> */}
+          <div className="rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] shadow-sm px-6 py-5">
+            <h2 className="text-2xl font-semibold text-[var(--color-fg-primary)]">
+              {searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)} Data
+            </h2>
+            <div className="mt-2 h-[3px] w-20 rounded-full bg-[var(--color-accent-secondary)]" />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data.map((item, index) => (
-              <ActiveComponent 
+              <ActiveComponent
                 key={index}
                 data={item}
                 onUpdate={() => onEdit(item)}
-                onDelete={() => onDelete(item.aircraftID || item.flightGuid || item.crewMemberId)}
+                onDelete={() => onDelete(item.aircraftId || item.flightGuid || item.crewMemberId)}
               />
             ))}
           </div>

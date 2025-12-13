@@ -1,22 +1,22 @@
-// import { testApi } from '../apiService';
+import { testApi } from "../apiService";
 
 export default function Header() {
   return (
-    <header className="h-[12.5%] md:px-20 flex flex-row justify-between items-center bg-bg-secondary shadow-md">
-      <img src="/Cornhusker_logo.png" alt="Logo" className="h-full" />
-      
-      <div className='items-center mr-40'>
-        <h1 className="text-5xl self-center font-mediums tracking-[0.2em] text-fg-primary">
-          Cornhusker Airways
-        </h1>
+    <header className="h-[72px] px-6 md:px-12 flex items-center justify-between bg-gradient-to-r from-[var(--color-brand-navy)] to-[var(--color-brand-blue)] text-white shadow-sm border-b border-white/10">
+      <div className="flex items-center gap-3">
+        <img src="/Cornhusker_logo.png" alt="Logo" className="h-10 w-auto" />
       </div>
 
-      {/* <button 
-        className="px-4 py-2 rounded-full border border-red-500 text-red-100 hover:bg-red-500 hover:text-white transition"
+      <h1 className="text-xl md:text-3xl font-light tracking-[0.35em] uppercase text-white/95">
+        Cornhusker Airways
+      </h1>
+
+      <button
+        className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 text-white text-sm font-semibold transition"
         onClick={testApi}
       >
         Test API
-      </button> */}
+      </button>
     </header>
   );
 }
