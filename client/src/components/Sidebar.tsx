@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { updateRecordService } from "../apiService";
 import type { UpdateRecord } from "../types/UpdateRecord";
 
@@ -9,17 +9,17 @@ interface Props {
 export default function Sidebar({ refreshTrigger }: Props) {
   const [data, setData] = useState<UpdateRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [sortBy, setSortBy] = useState<string>('newest');
 
   useEffect(() => {
     const fetchData = async () => {
+      setData([]);
       setLoading(true);
 
       try {
         const response = await updateRecordService.getUpdateRecords();
         setData(response.data);
       } catch (error) {
-        console.error('Error fetching update logs', error);
+        console.error("Error fetching update logs", error);
       } finally {
         setLoading(false);
       }
@@ -28,64 +28,63 @@ export default function Sidebar({ refreshTrigger }: Props) {
     fetchData();
   }, [refreshTrigger]);
 
-  const sortedData = [...data].sort((a, b) => {
-    if (sortBy === 'newest') {
-      return new Date(b.updateTime).getTime() - new Date(a.updateTime).getTime();
-    }
-    if (sortBy === 'oldest') {
-      return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
-    }
-    if (sortBy === 'entity') {
-      return a.entityName.localeCompare(b.entityName);
-    }
-    return 0;
-  });
+  if (loading) {
+    return (
+      <aside className="w-[360px] min-w-[320px] h-full p-6 bg-[var(--color-bg-secondary)] border-l border-[var(--color-border)]">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-bold tracking-[0.25em] text-[var(--color-fg-muted)]">
+            LOGS
+          </p>
+          <span className="h-2 w-2 rounded-full bg-[var(--color-accent-secondary)]" />
+        </div>
+        <p className="text-sm text-[var(--color-fg-secondary)]">Loading...</p>
+      </aside>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <aside className="w-[360px] min-w-[320px] h-full p-6 bg-[var(--color-bg-secondary)] border-l border-[var(--color-border)]">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-bold tracking-[0.25em] text-[var(--color-fg-muted)]">
+            LOGS
+          </p>
+          <span className="h-2 w-2 rounded-full bg-[var(--color-accent-secondary)]" />
+        </div>
+        <p className="text-sm text-[var(--color-fg-secondary)] italic">No logs yet.</p>
+      </aside>
+    );
+  }
 
   return (
-    <div className="w-1/4 h-full bg-bg-primary text-gray-200 border border-accent-faded px-4 py-6 overflow-y-auto rounded-md">
-
-      <div className="flex justify-between items-center mb-3">
-        <div className="text-md font-semibold tracking-[0.25em] text-fg-primary">
+    <aside className="w-[360px] min-w-[320px] h-full p-6 bg-[var(--color-bg-secondary)] border-l border-[var(--color-border)] overflow-y-auto">
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-xs font-bold tracking-[0.25em] text-[var(--color-fg-muted)]">
           LOGS
-        </div>
-        
-        <select 
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="bg-bg-secondary text-fg-faded text-xs border border-bg-faded rounded-sm px-2 py-1"
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="entity">A-Z</option>
-        </select>
+        </p>
+        <span className="h-2 w-2 rounded-full bg-[var(--color-accent-secondary)]" />
       </div>
 
-      <div className="h-px bg-accent-faded rounded-full mb-4" />
-
-      {loading && data.length === 0 && (
-        <div className="text-fg-faded text-sm animate-pulse">Loading…</div>
-      )}
-
-      {!loading && data.length === 0 && (
-        <div className="text-fg-faded text-sm italic">
-          No logs yet.
-        </div>
-      )}
-
-      {sortedData.length > 0 && (
-        <div className="flex flex-col gap-4">
-          {sortedData.map((log, idx) => (
-            <div key={idx} className="p-3 rounded-md bg-bg-secondary border border-bg-faded transition-colors">
-              <p className="text-sm font-semibold text-fg-secondary">{log.entityName}</p>
-              <p className="text-xs text-fg-faded mt-0.5">{log.updateType}</p>
-              <p className="text-[10px] text-fg-secondary font-mono mt-2 text-right">
-                {new Date(log.updateTime).toLocaleString()}
+      <div className="flex flex-col gap-3">
+        {data.map((log: UpdateRecord, idx) => {
+          return (
+            <div
+              key={idx}
+              className="rounded-xl border border-[var(--color-border)] bg-white p-3 shadow-sm"
+            >
+              <p className="text-sm font-semibold text-[var(--color-fg-primary)]">
+                {log.entityName}
+              </p>
+              <p className="text-xs text-[var(--color-fg-secondary)]">
+                {log.updateType}
+              </p>
+              <p className="text-xs text-[var(--color-fg-muted)]">
+                {log.updateTime}
               </p>
             </div>
-          ))}
-        </div>
-      )}
-
-    </div>
+          );
+        })}
+      </div>
+    </aside>
   );
 }
