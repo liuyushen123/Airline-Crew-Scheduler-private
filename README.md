@@ -1,5 +1,5 @@
 <div align='center'>
-    <img src="doc/Cornhusker_logo.png" alt="Cornhusker Airways LOGO" height="296">
+    <img src="doc/frontend2.png" alt="Cornhusker Airways LOGO" height="296">
 </div>
 
 <br>
