@@ -122,21 +122,21 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 sm:p-7 bg-bg-primary/95 border border-bg-faded/70 rounded-2xl shadow-2xl w-full max-w-md relative">
+    <div className="flex flex-col gap-6 p-6 sm:p-7 bg-bg-primary/95 border border-bg-faded/70 rounded-2xl shadow-2xl w-full max-w-5xl xl:max-w-6xl max-h-[85vh] overflow-y-auto scrollbar-soft relative">
       <div className="border-b border-bg-faded/70 pb-4 mb-1">
         <h3 className="font-semibold text-xl sm:text-2xl tracking-wide text-fg-primary">
           {initialData ? "Update" : "Create"} Flight
         </h3>
       </div>
 
-      <div className="flex flex-col gap-5">
-        <label className="flex flex-col gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+        <label className="flex flex-col gap-2 lg:col-start-1">
           <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Origin</span>
-          <select 
+          <select
             className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
             value={formData.origin}
             onChange={(e) => {
-              setFormData({...formData, origin: e.target.value, aircraftId: ""});
+              setFormData({ ...formData, origin: e.target.value, aircraftId: "" });
               setCrewSelections({ captainId: "", firstOfficerId: "", attendantIds: [] });
             }}
           >
@@ -148,12 +148,12 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
           </select>
         </label>
 
-        <label className="flex flex-col gap-2">
+        <label className="flex flex-col gap-2 lg:col-start-1">
           <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Destination</span>
-          <select 
+          <select
             className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
             value={formData.destination}
-            onChange={(e) => setFormData({...formData, destination: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
           >
             <option value="" disabled className="text-fg-faded">Select Airport</option>
             <option value="Lincoln">Lincoln, Nebraska</option>
@@ -163,12 +163,12 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
           </select>
         </label>
 
-        <label className="flex flex-col gap-2">
+        <label className="flex flex-col gap-2 lg:col-start-1">
           <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Aircraft Assignment</span>
-          <select 
-            className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
+          <select
+            className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition disabled:opacity-60 disabled:cursor-not-allowed"
             value={formData.aircraftId}
-            onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, aircraftId: e.target.value })}
             disabled={!formData.origin}
           >
             <option value="" disabled className="text-fg-faded">
@@ -176,92 +176,103 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
             </option>
 
             {aircraftData
-            .filter((aircraft) => aircraft.currentLocation === formData.origin)
-            .map(({ aircraftID, aircraftType }) => (
-              <option key={aircraftID} value={aircraftID}>
-                {aircraftType} | {aircraftID.substring(0, 8)}...
-              </option>
-            ))}
+              .filter((aircraft) => aircraft.currentLocation === formData.origin)
+              .map(({ aircraftID, aircraftType }) => (
+                <option key={aircraftID} value={aircraftID}>
+                  {aircraftType} | {aircraftID.substring(0, 8)}...
+                </option>
+              ))}
           </select>
           {formData.origin && aircraftData.filter(a => a.currentLocation === formData.origin).length === 0 && (
-             <span className="text-xs text-accent-primary italic">No aircraft available at {formData.origin}</span>
+            <span className="text-xs text-accent-primary italic">No aircraft available at {formData.origin}</span>
           )}
         </label>
 
-        <div className="flex flex-col gap-4 p-4 bg-bg-secondary/30 rounded-lg border border-bg-faded">
-            <h4 className="font-semibold text-fg-primary border-b border-bg-faded pb-2">Flight Crew</h4>
-            
-            <label className="flex flex-col gap-2">
-              <span className="text-xs font-bold text-fg-secondary uppercase">Captain</span>
-              <select 
-                className="w-full p-2 rounded border border-bg-faded text-sm"
-                value={crewSelections.captainId}
-                onChange={(e) => setCrewSelections({...crewSelections, captainId: e.target.value})}
-                disabled={!formData.origin}
-              >
-                <option value="">Select Captain</option>
-                {availableCaptains.map(c => (
-                    <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
-                ))}
-              </select>
-            </label>
+        <div className="flex flex-col gap-4 p-5 bg-bg-faded/40 rounded-2xl border border-bg-faded/80 lg:col-start-2 lg:row-start-1 lg:row-span-4 self-start">
+          <h4 className="font-semibold text-fg-primary border-b border-bg-faded/70 pb-3">
+            Flight Crew
+          </h4>
 
-            <label className="flex flex-col gap-2">
-              <span className="text-xs font-bold text-fg-secondary uppercase">First Officer</span>
-              <select 
-                className="w-full p-2 rounded border border-bg-faded text-sm"
-                value={crewSelections.firstOfficerId}
-                onChange={(e) => setCrewSelections({...crewSelections, firstOfficerId: e.target.value})}
-                disabled={!formData.origin}
-              >
-                <option value="">Select First Officer</option>
-                {availableFirstOfficers.map(c => (
-                  <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
-                ))}
-              </select>
-            </label>
+          <label className="flex flex-col gap-2 lg:col-start-1">
+            <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Captain</span>
+            <select
+              className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition disabled:opacity-60 disabled:cursor-not-allowed"
+              value={crewSelections.captainId}
+              onChange={(e) => setCrewSelections({ ...crewSelections, captainId: e.target.value })}
+              disabled={!formData.origin}
+            >
+              <option value="">Select Captain</option>
+              {availableCaptains.map(c => (
+                <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+              ))}
+            </select>
+          </label>
 
-            <div className="flex flex-col gap-2">
-                <span className="text-xs font-bold text-fg-secondary uppercase">Flight Attendants</span>
-                <div className="flex flex-col gap-2 max-h-32 overflow-y-auto border border-bg-faded p-2 rounded bg-white">
-                    {availableAttendants.length === 0 && <span className="text-xs text-fg-faded italic">No attendants at origin.</span>}
-                    
-                    {availableAttendants.map(c => (
-                        <label key={c.crewMemberId} className="flex items-center gap-2 cursor-pointer hover:bg-bg-secondary p-1 rounded">
-                            <input 
-                                type="checkbox"
-                                checked={crewSelections.attendantIds.includes(c.crewMemberId)}
-                                onChange={() => handleAttendantToggle(c.crewMemberId)}
-                                className="accent-accent-primary"
-                            />
-                            <span className="text-sm">{c.name}</span>
-                        </label>
-                    ))}
-                </div>
-                <span className="text-xs text-fg-faded text-right">{crewSelections.attendantIds.length} selected</span>
+          <label className="flex flex-col gap-2 lg:col-start-1">
+            <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">First Officer</span>
+            <select
+              className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition disabled:opacity-60 disabled:cursor-not-allowed"
+              value={crewSelections.firstOfficerId}
+              onChange={(e) => setCrewSelections({ ...crewSelections, firstOfficerId: e.target.value })}
+              disabled={!formData.origin}
+            >
+              <option value="">Select First Officer</option>
+              {availableFirstOfficers.map(c => (
+                <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+              ))}
+            </select>
+          </label>
+
+          <div className="flex flex-col gap-2">
+            <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Flight Attendants</span>
+
+            <div className="flex flex-col gap-1.5 max-h-36 overflow-y-auto scrollbar-soft border border-bg-faded/80 p-3 rounded-xl bg-bg-secondary">
+              {availableAttendants.length === 0 && (
+                <span className="text-xs text-fg-faded italic">No attendants at origin.</span>
+              )}
+
+              {availableAttendants.map(c => (
+                <label
+                  key={c.crewMemberId}
+                  className="flex items-center gap-2 cursor-pointer hover:bg-bg-faded/60 transition p-2 rounded-lg"
+                >
+                  <input
+                    type="checkbox"
+                    checked={crewSelections.attendantIds.includes(c.crewMemberId)}
+                    onChange={() => handleAttendantToggle(c.crewMemberId)}
+                    className="accent-accent-primary"
+                  />
+                  <span className="text-sm text-fg-primary">{c.name}</span>
+                </label>
+              ))}
             </div>
+
+            <span className="text-xs text-fg-faded text-right">
+              {crewSelections.attendantIds.length} selected
+            </span>
+          </div>
         </div>
-        
-        <label className="flex flex-col gap-2">
+
+        <label className="flex flex-col gap-2 lg:col-start-1">
           <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Scheduled Takeoff</span>
           <input
             className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary placeholder-fg-faded focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
             type="datetime-local"
             value={formData.schedTakeoff || ""}
-            onChange={(e) => setFormData({...formData, schedTakeoff: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, schedTakeoff: e.target.value })}
           />
         </label>
       </div>
 
       <div className="flex gap-3 mt-4 pt-4 border-t border-bg-faded/70">
-        <button 
-          onClick={onCancel} 
+        <button
+          onClick={onCancel}
           className="flex-1 px-4 py-2.5 rounded-lg border border-bg-faded/80 text-fg-secondary hover:bg-bg-secondary hover:text-fg-primary transition font-semibold"
         >
           Cancel
         </button>
-        <button 
-          onClick={handleSubmit} 
+        <button
+          onClick={handleSubmit}
           className="flex-1 px-4 py-2.5 rounded-lg bg-accent-primary text-white hover:bg-accent-secondary transition font-semibold shadow-sm hover:shadow-md active:scale-[0.99]"
         >
           {initialData ? "Save Changes" : "Schedule Flight"}
