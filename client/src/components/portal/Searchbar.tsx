@@ -6,17 +6,16 @@ interface Props {
 
 export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: Props) {
   return (
-    <div className="w-full bg-bg-primary rounded-md shadow-xs border border-accent-faded flex flex-row items-center justify-between px-4 md:px-6 py-3">
-      
-      <div className="flex flex-row items-center gap-3">
-        <label className="text-2xl font-semibold text-fg-primary tracking-wide">
+    <div className="w-full bg-bg-primary/95 backdrop-blur-sm rounded-xl shadow-sm border border-bg-faded/70 flex flex-row items-center justify-between px-4 sm:px-5 md:px-6 py-3">
+      <div className="flex flex-row items-center gap-3 sm:gap-4">
+        <label className="text-base sm:text-lg md:text-xl font-semibold text-fg-primary tracking-wide">
           Search For:
         </label>
-        
+
         <select
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value as any)}
-          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-2xl focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          className="py-2.5 px-4 rounded-lg bg-bg-secondary border border-bg-faded/80 text-fg-primary font-medium text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
         >
           <option value="crew">Crew Members</option>
           <option value="flight">Flights</option>
@@ -26,7 +25,7 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-accent-primary hover:bg-accent-secondary text-white rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
+        className="bg-accent-primary hover:bg-accent-secondary text-white rounded-lg transition py-2.5 px-5 sm:px-6 text-sm sm:text-base font-semibold shadow-sm hover:shadow-md active:scale-[0.99]"
       >
         Create
       </button>

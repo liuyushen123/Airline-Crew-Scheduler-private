@@ -42,17 +42,16 @@ export default function Sidebar({ refreshTrigger }: Props) {
   });
 
   return (
-    <div className="w-1/4 h-full bg-bg-primary text-gray-200 border border-accent-faded px-4 py-6 overflow-y-auto rounded-md">
-
-      <div className="flex justify-between items-center mb-3">
-        <div className="text-lg font-semibold tracking-[0.25em] text-fg-primary">
+    <div className="w-1/4 h-full bg-bg-primary/95 border border-bg-faded/70 px-4 sm:px-5 py-5 overflow-y-auto rounded-xl shadow-sm">
+      <div className="flex justify-between items-center mb-3 gap-3">
+        <div className="text-sm sm:text-base font-semibold tracking-[0.35em] text-fg-primary uppercase">
           LOGS
         </div>
         
         <select 
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-bg-secondary text-fg-faded text-xl border border-bg-faded rounded-sm px-4 py-2 mr-2"
+          className="bg-bg-secondary text-fg-primary text-sm sm:text-base border border-bg-faded/80 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent-primary/35 focus:border-accent-primary transition"
         >
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
@@ -60,7 +59,7 @@ export default function Sidebar({ refreshTrigger }: Props) {
         </select>
       </div>
 
-      <div className="h-px bg-accent-faded rounded-full mb-4" />
+      <div className="h-px bg-bg-faded/80 rounded-full mb-4" />
 
       {loading && data.length === 0 && (
         <div className="text-fg-faded text-sm animate-pulse">Loading…</div>
@@ -73,19 +72,21 @@ export default function Sidebar({ refreshTrigger }: Props) {
       )}
 
       {sortedData.length > 0 && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           {sortedData.map((log, idx) => (
-            <div key={idx} className="p-3 rounded-md bg-bg-secondary border border-bg-faded transition-colors">
-              <p className="text-sm font-semibold text-fg-secondary">{log.entityName}</p>
-              <p className="text-xs text-fg-faded mt-0.5">{log.updateType}</p>
-              <p className="text-[10px] text-fg-secondary font-mono mt-2 text-right">
+            <div
+              key={idx}
+              className="p-3 rounded-xl bg-bg-secondary border border-bg-faded/70 shadow-xs hover:shadow-sm transition"
+            >
+              <p className="text-sm font-semibold text-fg-primary">{log.entityName}</p>
+              <p className="text-xs text-fg-faded mt-1">{log.updateType}</p>
+              <p className="text-[11px] text-fg-secondary font-mono mt-3 text-right">
                 {new Date(log.updateTime).toLocaleString()}
               </p>
             </div>
           ))}
         </div>
       )}
-
     </div>
   );
 }
