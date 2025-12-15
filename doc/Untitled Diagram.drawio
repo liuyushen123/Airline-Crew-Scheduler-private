@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.1">
+  <diagram name="Page-1" id="JmRDENlB4xFm64RVn0tx">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Aircrafts&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;AircraftID: Primary key&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Aircraft Type: string&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;MaxCapacity: int&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Current Location: String&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="160" x="690" y="-710" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;rotation=0;align=center;" value="Flights&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;FlightGuid: Primary Key&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;AircraftID: Foreign Key&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Origin: String&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Destination: String&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;EstTouchdown: DateTime?&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;ActTouchdown:DateTime?&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;EstTakeoff:DateTime?&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ActTakeoff: DateTime?&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;SchedTakeoff: DateTime?&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;CrewAssignment:&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="220" x="300" y="-960" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-8" edge="1" parent="1" source="kN_zyiyRg2b4AiHMjm6d-2" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;fontSize=12;startSize=8;endSize=8;" target="kN_zyiyRg2b4AiHMjm6d-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-9" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Flight Crew&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;FlightID: Primary Key&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;CrewMemberId: PrimaryKey&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;RoleOnFlight:String&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="145" width="145" x="-10" y="-730" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-11" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="CrewMember&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div style=&quot;text-align: left;&quot;&gt;CrewMemberId: Primary Key&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Name: string&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Role: string&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;Location: string&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="170" x="-290" y="-715" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-14" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="UpdateRecords&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;UpdateId: Primary Key&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;UpdateTime: DateTime?&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;EntityName: String&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;EntityId: int&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;UpdateType: string&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp; &amp;nbsp;//Has no foreignkey does not link to any table&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="180" x="720" y="-980" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-28" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.998;entryY=0.321;entryDx=0;entryDy=0;entryPerimeter=0;" target="kN_zyiyRg2b4AiHMjm6d-11" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-290" y="-660" as="sourcePoint" />
+            <mxPoint x="-170" y="-660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-29" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-10" y="-679.12" as="sourcePoint" />
+            <mxPoint x="130" y="-680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-33" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-120" y="-640" as="sourcePoint" />
+            <mxPoint x="-10" y="-640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-42" parent="1" style="text;strokeColor=none;fillColor=none;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" value="1&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; *" vertex="1">
+          <mxGeometry height="30" width="80" x="-110" y="-672.5" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-43" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="135" y="-658.17" as="sourcePoint" />
+            <mxPoint x="230" y="-660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-44" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="230" y="-660" as="sourcePoint" />
+            <mxPoint x="230" y="-900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-45" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="230" y="-900" as="sourcePoint" />
+            <mxPoint x="300" y="-900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-49" parent="1" style="text;strokeColor=none;fillColor=none;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" value="*&amp;nbsp; &amp;nbsp; &amp;nbsp; 1" vertex="1">
+          <mxGeometry height="30" width="60" x="160" y="-710" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-50" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="520" y="-880" as="sourcePoint" />
+            <mxPoint x="610" y="-880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-51" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="610" y="-880" as="sourcePoint" />
+            <mxPoint x="610" y="-640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-52" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="610" y="-642" as="sourcePoint" />
+            <mxPoint x="690" y="-642.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-53" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="*&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;1" vertex="1">
+          <mxGeometry height="30" width="80" x="610" y="-680" as="geometry" />
+        </mxCell>
+        <mxCell id="kN_zyiyRg2b4AiHMjm6d-54" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.992;entryY=0.226;entryDx=0;entryDy=0;entryPerimeter=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="300.88" y="-910" as="sourcePoint" />
+            <mxPoint x="519.12" y="-910.28" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
