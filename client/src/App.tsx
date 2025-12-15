@@ -8,11 +8,11 @@ function App() {
   const [refreshTrigger, triggerSidebarRefresh] = useState<number>(0);
 
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 font-sans bg-slate-900">
+    <div className="w-screen h-screen flex flex-col flex-1 font-sans bg-bg-primary">
       
       <Header />
 
-      <div className="flex flex-row flex-1 h-[77.5%] px-2">
+      <div className="flex flex-row flex-1 h-[77.5%] px-2 py-4">
         <Portal triggerSidebarRefresh={triggerSidebarRefresh}/>
         <Sidebar refreshTrigger={refreshTrigger}/>
       </div>
