@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { CommercialFlight } from "../../types/CommercialFlight";
 import type { Aircraft } from "../../types/Aircraft";
-import type { CrewMember } from "../../types/CrewMember"; // Ensure this matches your file path
+import type { CrewMember } from "../../types/CrewMember";
 import { aircraftService } from "../../apiService";
 import { crewMemberService } from "../../apiService";
 
@@ -11,7 +11,6 @@ interface Props {
   onCancel: () => void;
 }
 
-// Helper type for local state
 interface CrewSelection {
   captainId: string;
   firstOfficerId: string;
@@ -67,6 +66,22 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
+
+      if ((initialData as any).flightCrews) {
+        const crews = (initialData as any).flightCrews as any[];
+        
+        const captain = crews.find(c => c.roleOnFlight === "Captain");
+        const fo = crews.find(c => c.roleOnFlight === "First Officer");
+        const attendants = crews
+          .filter(c => c.roleOnFlight === "Flight Attendant")
+          .map(c => c.crewMemberId);
+
+        setCrewSelections({
+          captainId: captain?.crewMemberId || "",
+          firstOfficerId: fo?.crewMemberId || "",
+          attendantIds: attendants || []
+        });
+      }
     }
   }, [initialData]);
 
@@ -177,33 +192,33 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
             <h4 className="font-semibold text-fg-primary border-b border-bg-faded pb-2">Flight Crew</h4>
             
             <label className="flex flex-col gap-2">
-                <span className="text-xs font-bold text-fg-secondary uppercase">Captain</span>
-                <select 
-                    className="w-full p-2 rounded border border-bg-faded text-sm"
-                    value={crewSelections.captainId}
-                    onChange={(e) => setCrewSelections({...crewSelections, captainId: e.target.value})}
-                    disabled={!formData.origin}
-                >
-                    <option value="">Select Captain</option>
-                    {availableCaptains.map(c => (
-                        <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
-                    ))}
-                </select>
+              <span className="text-xs font-bold text-fg-secondary uppercase">Captain</span>
+              <select 
+                className="w-full p-2 rounded border border-bg-faded text-sm"
+                value={crewSelections.captainId}
+                onChange={(e) => setCrewSelections({...crewSelections, captainId: e.target.value})}
+                disabled={!formData.origin}
+              >
+                <option value="">Select Captain</option>
+                {availableCaptains.map(c => (
+                    <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+                ))}
+              </select>
             </label>
 
             <label className="flex flex-col gap-2">
-                <span className="text-xs font-bold text-fg-secondary uppercase">First Officer</span>
-                <select 
-                    className="w-full p-2 rounded border border-bg-faded text-sm"
-                    value={crewSelections.firstOfficerId}
-                    onChange={(e) => setCrewSelections({...crewSelections, firstOfficerId: e.target.value})}
-                    disabled={!formData.origin}
-                >
-                    <option value="">Select First Officer</option>
-                    {availableFirstOfficers.map(c => (
-                        <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
-                    ))}
-                </select>
+              <span className="text-xs font-bold text-fg-secondary uppercase">First Officer</span>
+              <select 
+                className="w-full p-2 rounded border border-bg-faded text-sm"
+                value={crewSelections.firstOfficerId}
+                onChange={(e) => setCrewSelections({...crewSelections, firstOfficerId: e.target.value})}
+                disabled={!formData.origin}
+              >
+                <option value="">Select First Officer</option>
+                {availableFirstOfficers.map(c => (
+                  <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+                ))}
+              </select>
             </label>
 
             <div className="flex flex-col gap-2">

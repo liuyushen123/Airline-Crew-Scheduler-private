@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="relative h-[12.5%] min-h-[72px] px-4 sm:px-6 md:px-10 flex items-center justify-center bg-accent-secondary shadow-sm border-b border-bg-faded/60">
+    <header className="relative h-[12.5%] min-h-18 px-4 sm:px-6 md:px-10 flex items-center justify-center bg-accent-secondary shadow-sm border-b border-bg-faded/60">
       <img
         src="/Cornhusker_logo.png"
         alt="Logo"
@@ -12,13 +12,6 @@ export default function Header() {
           Cornhusker Airways
         </h1>
       </div>
-
-      {/* <button 
-        className="px-4 py-2 rounded-full border border-red-500 text-red-100 hover:bg-red-500 hover:text-white transition"
-        onClick={testApi}
-      >
-        Test API
-      </button> */}
     </header>
   );
 }
