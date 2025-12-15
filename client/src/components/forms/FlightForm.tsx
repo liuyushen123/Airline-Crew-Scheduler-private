@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import type { CommercialFlight } from "../../types/CommercialFlight";
 import type { Aircraft } from "../../types/Aircraft";
+import type { CrewMember } from "../../types/CrewMember";
 import { aircraftService } from "../../apiService";
+import { crewMemberService } from "../../apiService";
 
 interface Props {
   initialData?: CommercialFlight | null;
   onSubmit: (data: CommercialFlight) => void;
   onCancel: () => void;
+}
+
+interface CrewSelection {
+  captainId: string;
+  firstOfficerId: string;
+  attendantIds: string[];
 }
 
 export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
@@ -23,8 +31,14 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
     actTouchdown: null,
   });
   const [aircraftData, setAircraftData] = useState<Aircraft[]>([]);
+  const [crewMemberData, setCrewMemberData] = useState<CrewMember[]>([]);
 
-  // effect to load aircrafts
+  const [crewSelections, setCrewSelections] = useState<CrewSelection>({
+    captainId: "",
+    firstOfficerId: "",
+    attendantIds: []
+  });
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -33,17 +47,68 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
       } catch (err) {
         console.error("Failed to load aircraft", err);
       }
-    }
+    };
     load();
   }, []);
 
-  // effect to set given data for update
   useEffect(() => {
-    if (initialData) setFormData(initialData);
+    const load = async () => {
+      try {
+        const { data } = await crewMemberService.getCrewMembers();
+        setCrewMemberData(data);
+      } catch (err) {
+        console.error("Failed to load crew members", err);
+      }
+    };
+    load();
+  }, []);
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+
+      if ((initialData as any).flightCrews) {
+        const crews = (initialData as any).flightCrews as any[];
+        
+        const captain = crews.find(c => c.roleOnFlight === "Captain");
+        const fo = crews.find(c => c.roleOnFlight === "First Officer");
+        const attendants = crews
+          .filter(c => c.roleOnFlight === "Flight Attendant")
+          .map(c => c.crewMemberId);
+
+        setCrewSelections({
+          captainId: captain?.crewMemberId || "",
+          firstOfficerId: fo?.crewMemberId || "",
+          attendantIds: attendants || []
+        });
+      }
+    }
   }, [initialData]);
 
+  const availableCrew = crewMemberData.filter(c => c.location === formData.origin);
+  const availableCaptains = availableCrew.filter(c => c.role === "Captain");
+  const availableFirstOfficers = availableCrew.filter(c => c.role === "First Officer");
+  const availableAttendants = availableCrew.filter(c => c.role === "Flight Attendant");
+
+  const handleAttendantToggle = (id: string) => {
+    setCrewSelections(prev => {
+      const exists = prev.attendantIds.includes(id);
+      return {
+        ...prev,
+        attendantIds: exists 
+          ? prev.attendantIds.filter(aId => aId !== id)
+          : [...prev.attendantIds, id]
+      };
+    });
+  };
+
   const handleSubmit = () => {
-    const payload = { ...formData };
+    const payload = { 
+      ...formData,
+      captainId: crewSelections.captainId || null,
+      firstOfficerId: crewSelections.firstOfficerId || null,
+      flightAttendantIds: crewSelections.attendantIds
+    };
 
     if (!initialData) {
       delete (payload as any).flightGuid;
@@ -53,7 +118,7 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
         (payload as any).aircraftId = null;
     }
 
-    onSubmit(payload);
+    onSubmit(payload as any);
   };
 
   return (
@@ -70,7 +135,10 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
           <select 
             className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
             value={formData.origin}
-            onChange={(e) => setFormData({...formData, origin: e.target.value})}
+            onChange={(e) => {
+              setFormData({...formData, origin: e.target.value, aircraftId: ""});
+              setCrewSelections({ captainId: "", firstOfficerId: "", attendantIds: [] });
+            }}
           >
             <option value="" disabled className="text-fg-faded">Select Airport</option>
             <option value="Lincoln">Lincoln, Nebraska</option>
@@ -101,6 +169,7 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
             className="w-full p-3 rounded-xl bg-bg-secondary border border-bg-faded/80 text-fg-primary focus:outline-none focus:ring-2 focus:ring-accent-primary/40 focus:border-accent-primary transition"
             value={formData.aircraftId}
             onChange={(e) => setFormData({...formData, aircraftId: e.target.value})}
+            disabled={!formData.origin}
           >
             <option value="" disabled className="text-fg-faded">
               {formData.origin ? "Select Aircraft" : "Select Origin First"}
@@ -108,18 +177,70 @@ export default function FlightForm({ initialData, onSubmit, onCancel }: Props) {
 
             {aircraftData
             .filter((aircraft) => aircraft.currentLocation === formData.origin)
-            .map(({ aircraftID, aircraftType }) => {
-              return (
-                <option key={aircraftID} value={aircraftID}>
-                  {aircraftType} | {aircraftID}
-                </option>
-              )
-            })}
+            .map(({ aircraftID, aircraftType }) => (
+              <option key={aircraftID} value={aircraftID}>
+                {aircraftType} | {aircraftID.substring(0, 8)}...
+              </option>
+            ))}
           </select>
           {formData.origin && aircraftData.filter(a => a.currentLocation === formData.origin).length === 0 && (
              <span className="text-xs text-accent-primary italic">No aircraft available at {formData.origin}</span>
           )}
         </label>
+
+        <div className="flex flex-col gap-4 p-4 bg-bg-secondary/30 rounded-lg border border-bg-faded">
+            <h4 className="font-semibold text-fg-primary border-b border-bg-faded pb-2">Flight Crew</h4>
+            
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-bold text-fg-secondary uppercase">Captain</span>
+              <select 
+                className="w-full p-2 rounded border border-bg-faded text-sm"
+                value={crewSelections.captainId}
+                onChange={(e) => setCrewSelections({...crewSelections, captainId: e.target.value})}
+                disabled={!formData.origin}
+              >
+                <option value="">Select Captain</option>
+                {availableCaptains.map(c => (
+                    <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+                ))}
+              </select>
+            </label>
+
+            <label className="flex flex-col gap-2">
+              <span className="text-xs font-bold text-fg-secondary uppercase">First Officer</span>
+              <select 
+                className="w-full p-2 rounded border border-bg-faded text-sm"
+                value={crewSelections.firstOfficerId}
+                onChange={(e) => setCrewSelections({...crewSelections, firstOfficerId: e.target.value})}
+                disabled={!formData.origin}
+              >
+                <option value="">Select First Officer</option>
+                {availableFirstOfficers.map(c => (
+                  <option key={c.crewMemberId} value={c.crewMemberId}>{c.name}</option>
+                ))}
+              </select>
+            </label>
+
+            <div className="flex flex-col gap-2">
+                <span className="text-xs font-bold text-fg-secondary uppercase">Flight Attendants</span>
+                <div className="flex flex-col gap-2 max-h-32 overflow-y-auto border border-bg-faded p-2 rounded bg-white">
+                    {availableAttendants.length === 0 && <span className="text-xs text-fg-faded italic">No attendants at origin.</span>}
+                    
+                    {availableAttendants.map(c => (
+                        <label key={c.crewMemberId} className="flex items-center gap-2 cursor-pointer hover:bg-bg-secondary p-1 rounded">
+                            <input 
+                                type="checkbox"
+                                checked={crewSelections.attendantIds.includes(c.crewMemberId)}
+                                onChange={() => handleAttendantToggle(c.crewMemberId)}
+                                className="accent-accent-primary"
+                            />
+                            <span className="text-sm">{c.name}</span>
+                        </label>
+                    ))}
+                </div>
+                <span className="text-xs text-fg-faded text-right">{crewSelections.attendantIds.length} selected</span>
+            </div>
+        </div>
         
         <label className="flex flex-col gap-2">
           <span className="text-xs font-semibold text-fg-secondary uppercase tracking-wider">Scheduled Takeoff</span>
