@@ -3,6 +3,65 @@
 </div>
 
 <br>
+# Project Setup Guide
+This following part provides the instructions on how to set up and run frontend and backend for out Airline Crew Scheduler app
+
+## Frontend Setup (React + Vite)
+The frontend is a React application built with Vite.
+
+## Prerequisites
+
+- [Node.js] npm install required!
+
+### Steps 
+2. **Install dependencies:**
+      ```bash
+    npm install
+    ```
+3 **Run the development server:**
+      ```bash
+    npm run dev
+    ```
+    The application will be accessible at `http://localhost:5173` (or another port if 5173 is in use).
+
+## Backend Setup (.NET Core API
+
+The backend is a .NET 9 API with a SQL Server database.
+
+### Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (Express Edition is sufficient)
+
+### Steps
+
+1.  **Configure the database connection:**
+    - Create a new file named `.env` in the root directory of the project.
+    - Open the `.env.example` file to see the required environment variables.
+    - Add the following line to your `.env` file, replacing the placeholder with your actual SQL Server connection string:
+      ```
+      CONNECTION_STRING="Server=localhost\SQLEXPRESS;Database=AirlineSchedulerDB;Trusted_Connection=True;TrustServerCertificate=True;"
+      ```
+    - **Note:** Your server name might be different (e.g., `localhost`, `(localdb)\mssqllocaldb`). Adjust the `Server` part of the connection string accordingly.
+
+2. **Apply database migrations:**
+  -Open the terminal and naviggate to the backend server directory:
+      ```bash
+      cd Server/Server
+      ```
+  - Use the Entity Framework Core tools to apply the migrations. This will create the database and its tables.
+    ```bash
+    dotnet ef database update
+    ```
+
+3.  **Run the backend server:**
+    - From the `Server/Server` directory, run the application:
+      ```bash
+      dotnet run
+      ```
+    - The API will be running and accessible at the URLs specified in `Properties/launchSettings.json` (e.g., `http://localhost:5000` or `https://localhost:5001`).
+
+<br>
 
 # Introduction 
 
@@ -133,4 +192,5 @@ The backend of Cornhusker Airways is responsible for handling all scheduling log
   
       
 </ul>
+
 
