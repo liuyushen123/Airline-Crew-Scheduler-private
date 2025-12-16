@@ -2,7 +2,17 @@
     <img src="doc/Cornhusker_logo.png" alt="Cornhusker Airways LOGO" height="296">
 </div>
 
+# Introduction
+Cornhusker Airways Crew Scheduler is a fun class project building a regional airline scheduling system that provides intuitive airline information and a crew assignment system. This project explores real-world software design concepts such as using APIs, SQL Server, validation, and logging.
+
+The goal of this project is to build a functional and maintainable scheduler that displays essential flight information and clearly informs crew members which flights they are scheduled on!
+
+By simulating the development of this software, it helps us practice software design, data organization, and user-friendly frontend design.
+
+
 <br>
+<br>
+
 # Project Setup Guide
 This following part provides the instructions on how to set up and run frontend and backend for out Airline Crew Scheduler app
 
@@ -109,7 +119,7 @@ constraints are violated, the software must alert the user to the violation(s).
 
 # Demo
 
-<img src="doc/Demo.png">
+<img src="doc/image.png">
 
 - **🖥️ Frontend - Built with React** The frontend of Cornhusker Airways is developed using React, providing a responsive and interactive user experience. Our main objectives for the UI are clarity, simplicity, and ease of navigation for both flight crew and administrators.
 
