@@ -49,7 +49,7 @@ constraints are violated, the software must alert the user to the violation(s).
 
 # Demo
 
-<img src="doc/Demo.png">
+<img src="doc/frontend2.png.png">
 
 - **🖥️ Frontend - Built with React** The frontend of Cornhusker Airways is developed using React, providing a responsive and interactive user experience. Our main objectives for the UI are clarity, simplicity, and ease of navigation for both flight crew and administrators.
 
