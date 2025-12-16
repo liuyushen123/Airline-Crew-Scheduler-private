@@ -2,6 +2,76 @@
     <img src="doc/Cornhusker_logo.png" alt="Cornhusker Airways LOGO" height="296">
 </div>
 
+# Introduction
+Cornhusker Airways Crew Scheduler is a fun class project building a regional airline scheduling system that provides intuitive airline information and a crew assignment system. This project explores real-world software design concepts such as using APIs, SQL Server, validation, and logging.
+
+The goal of this project is to build a functional and maintainable scheduler that displays essential flight information and clearly informs crew members which flights they are scheduled on!
+
+By simulating the development of this software, it helps us practice software design, data organization, and user-friendly frontend design.
+
+
+<br>
+<br>
+
+# Project Setup Guide
+This following part provides the instructions on how to set up and run frontend and backend for out Airline Crew Scheduler app
+
+## Frontend Setup (React + Vite)
+The frontend is a React application built with Vite.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (npm required)
+
+
+### Steps 
+1. **Install dependencies:**
+      ```bash
+    npm install
+    ```
+2. **Run the development server:**
+      ```bash
+    npm run dev
+    ```
+    The application will be accessible at `http://localhost:5173` (or another port if 5173 is in use).
+
+## Backend Setup (.NET Core API)
+
+The backend is a .NET 9 API with a SQL Server database.
+
+### Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (Express Edition is sufficient)
+
+### Steps
+
+1.  **Configure the database connection:**
+    - Create a new file named `.env` in the root directory of the project.
+    - Open the `.env.example` file to see the required environment variables.
+    - Add the following line to your `.env` file, replacing the placeholder with your actual SQL Server connection string:
+      ```
+      CONNECTION_STRING="Server=localhost\SQLEXPRESS;Database=AirlineSchedulerDB;Trusted_Connection=True;TrustServerCertificate=True;"
+      ```
+    - **Note:** Your server name might be different (e.g., `localhost`, `(localdb)\mssqllocaldb`). Adjust the `Server` part of the connection string accordingly.
+
+2. **Apply database migrations:**
+  -Open the terminal and navigate to the backend server directory:
+      ```bash
+      cd Server/Server
+      ```
+  - Use the Entity Framework Core tools to apply the migrations. This will create the database and its tables.
+    ```bash
+    dotnet ef database update
+    ```
+
+3.  **Run the backend server:**
+    - From the `Server/Server` directory, run the application:
+      ```bash
+      dotnet run
+      ```
+    - The API will be running and accessible at the URLs specified in `Properties/launchSettings.json` (e.g., `http://localhost:5000` or `https://localhost:5001`).
+
 <br>
 
 # Introduction 
@@ -49,7 +119,7 @@ constraints are violated, the software must alert the user to the violation(s).
 
 # Demo
 
-<img src="doc/Demo.png">
+<img src="doc/image.png">
 
 - **🖥️ Frontend - Built with React** The frontend of Cornhusker Airways is developed using React, providing a responsive and interactive user experience. Our main objectives for the UI are clarity, simplicity, and ease of navigation for both flight crew and administrators.
 
@@ -133,4 +203,5 @@ The backend of Cornhusker Airways is responsible for handling all scheduling log
   
       
 </ul>
+
 
