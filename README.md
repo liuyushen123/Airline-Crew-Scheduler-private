@@ -11,20 +11,21 @@ The frontend is a React application built with Vite.
 
 ## Prerequisites
 
-- [Node.js] npm install required!
+- [Node.js](https://nodejs.org/) (npm required)
+
 
 ### Steps 
-2. **Install dependencies:**
+1. **Install dependencies:**
       ```bash
     npm install
     ```
-3 **Run the development server:**
+2. **Run the development server:**
       ```bash
     npm run dev
     ```
     The application will be accessible at `http://localhost:5173` (or another port if 5173 is in use).
 
-## Backend Setup (.NET Core API
+## Backend Setup (.NET Core API)
 
 The backend is a .NET 9 API with a SQL Server database.
 
@@ -45,7 +46,7 @@ The backend is a .NET 9 API with a SQL Server database.
     - **Note:** Your server name might be different (e.g., `localhost`, `(localdb)\mssqllocaldb`). Adjust the `Server` part of the connection string accordingly.
 
 2. **Apply database migrations:**
-  -Open the terminal and naviggate to the backend server directory:
+  -Open the terminal and navigate to the backend server directory:
       ```bash
       cd Server/Server
       ```
