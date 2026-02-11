@@ -87,7 +87,7 @@ export default function AircraftForm({ initialData, onSubmit, onCancel }: Props)
         </button>
         <button 
           onClick={handleSubmit} 
-          className="flex-1 px-4 py-2 rounded-sm bg-accent-primary text-fg-primary hover:bg-accent-secondary hover:text-fg-secondary transition-colors font-medium shadow-sm"
+          className="flex-1 px-4 py-2 rounded-sm bg-accent-primary text-white hover:bg-accent-secondary transition-colors font-medium shadow-sm"
         >
           {initialData ? "Save Changes" : "Create Aircraft"}
         </button>

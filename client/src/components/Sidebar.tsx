@@ -45,14 +45,14 @@ export default function Sidebar({ refreshTrigger }: Props) {
     <div className="w-1/4 h-full bg-bg-primary text-gray-200 border border-accent-faded px-4 py-6 overflow-y-auto rounded-md">
 
       <div className="flex justify-between items-center mb-3">
-        <div className="text-md font-semibold tracking-[0.25em] text-fg-primary">
+        <div className="text-lg font-semibold tracking-[0.25em] text-fg-primary">
           LOGS
         </div>
         
         <select 
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="bg-bg-secondary text-fg-faded text-xs border border-bg-faded rounded-sm px-2 py-1"
+          className="bg-bg-secondary text-fg-faded text-xl border border-bg-faded rounded-sm px-4 py-2 mr-2"
         >
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>

@@ -9,14 +9,14 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
     <div className="w-full bg-bg-primary rounded-md shadow-xs border border-accent-faded flex flex-row items-center justify-between px-4 md:px-6 py-3">
       
       <div className="flex flex-row items-center gap-3">
-        <label className="text-xl font-semibold text-fg-primary tracking-wide">
+        <label className="text-2xl font-semibold text-fg-primary tracking-wide">
           Search For:
         </label>
         
         <select
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value as any)}
-          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-lg"
+          className="items-center py-2 px-4 rounded-lg bg-bg-secondary border border-bg-faded text-fg-secondary font-medium text-2xl focus:outline-none focus:ring-2 focus:ring-accent-primary"
         >
           <option value="crew">Crew Members</option>
           <option value="flight">Flights</option>
@@ -26,7 +26,7 @@ export default function Searchbar({ searchTerm, setSearchTerm, onOpenCreate }: P
 
       <button
         onClick={onOpenCreate}
-        className="bg-accent-primary hover:bg-accent-secondary text-fg-primary hover:text-fg-secondary rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
+        className="bg-accent-primary hover:bg-accent-secondary text-white rounded-sm transition py-2 px-6 text-lg font-medium tracking-wide"
       >
         Create
       </button>
