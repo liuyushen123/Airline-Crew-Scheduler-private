@@ -62,6 +62,7 @@ namespace Server.Controller
 
             existingCrew.Name = crewMember.Name;
             existingCrew.Role = crewMember.Role;
+            existingCrew.Location = crewMember.Location;
 
             _context.UpdateRecords.Add(new Server.Model.Update.UpdateRecord
             {
