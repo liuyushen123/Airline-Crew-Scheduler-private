@@ -1,3 +1,4 @@
+[![Airline App CI/CD](https://github.com/liuyushen123/Airline-Crew-Scheduler-private/actions/workflows/main.yml/badge.svg)](https://github.com/liuyushen123/Airline-Crew-Scheduler-private/actions/workflows/main.yml)
 <div align='center'>
     <img src="doc/Cornhusker_logo.png" alt="Cornhusker Airways LOGO" height="296">
 </div>
